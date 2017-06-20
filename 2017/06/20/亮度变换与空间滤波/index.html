@@ -1,0 +1,744 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="亮度变换函数​    s = T(r) ​    r表示图像f中相应点(x,y)的亮度，s表示图像g中相依点(x,y)的亮度 ​    函数imadjust ​    此函数是对灰度图像进行亮度转换的基本IPT工具 ​    语法： ​    g = imadjust(f,[low_in high_in]n [low_out high_out], gamma) ​    对数和对比度拉伸变换 ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="亮度变换与空间滤波">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/亮度变换与空间滤波/index.html">
+<meta property="og:site_name" content="Cristal&#39;s blog">
+<meta property="og:description" content="亮度变换函数​    s = T(r) ​    r表示图像f中相应点(x,y)的亮度，s表示图像g中相依点(x,y)的亮度 ​    函数imadjust ​    此函数是对灰度图像进行亮度转换的基本IPT工具 ​    语法： ​    g = imadjust(f,[low_in high_in]n [low_out high_out], gamma) ​    对数和对比度拉伸变换 ​">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/horz.jpg">
+<meta property="og:updated_time" content="2017-06-20T11:50:42.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="亮度变换与空间滤波">
+<meta name="twitter:description" content="亮度变换函数​    s = T(r) ​    r表示图像f中相应点(x,y)的亮度，s表示图像g中相依点(x,y)的亮度 ​    函数imadjust ​    此函数是对灰度图像进行亮度转换的基本IPT工具 ​    语法： ​    g = imadjust(f,[low_in high_in]n [low_out high_out], gamma) ​    对数和对比度拉伸变换 ​">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/horz.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/亮度变换与空间滤波/"/>
+
+
+
+
+
+  <title>亮度变换与空间滤波 | Cristal's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cristal's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/亮度变换与空间滤波/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cristal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cristal's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">亮度变换与空间滤波</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T19:50:07+08:00">
+                2017-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="亮度变换函数"><a href="#亮度变换函数" class="headerlink" title="亮度变换函数"></a>亮度变换函数</h2><p>​    <em>s = T(r)</em></p>
+<p>​    r表示图像f中相应点(x,y)的亮度，s表示图像g中相依点(x,y)的亮度</p>
+<p>​    <strong>函数imadjust</strong></p>
+<p>​    此函数是对灰度图像进行亮度转换的基本IPT工具</p>
+<p>​    语法：</p>
+<p>​    <code>g = imadjust(f,[low_in high_in]n [low_out high_out], gamma)</code></p>
+<p>​    <strong>对数和对比度拉伸变换</strong></p>
+<p>​    <code>g = c*log(1 + double(f))</code></p>
+<p>​    <code>&gt;&gt;g = im2uint8(mat2gray(log(1 + double(f))));</code></p>
+<p>​    <strong>亮度变换的一些M函数</strong></p>
+<p>​    g = changeclass(newclass, f)</p>
+<p>​    <strong>亮度标度的M函数</strong></p>
+<p>​    <code>g = gscale(f, method, low, high)</code></p>
+<p>​    f 是将被标度的图像，method的有效值为 ‘full8’ 和 ‘full16’,若使用这两个有效    值其中一个，则可以在两种表换中省略参数low 和high，method 的第三个有效值为 ‘minmax’ 此时必须给出 low与high 在范围 [0, 1]内</p>
+<h2 id="直方图处理与函数绘图"><a href="#直方图处理与函数绘图" class="headerlink" title="直方图处理与函数绘图"></a>直方图处理与函数绘图</h2><p>​    <strong>生成并绘制直方图</strong></p>
+<p>​    h($r_k$) = $n_k$</p>
+<p>​    归一化直方图：</p>
+<p>​    p($r_k$) = $\tfrac{h(r_k)}{n}$ = $\tfrac{n_k}{n}$</p>
+<p>​    <strong>imhist函数</strong></p>
+<p>​    <code>h = imhist(f, b)</code></p>
+<p>​    其中， f 为输入图像， h为其直方图 $h(r_k)$ ,b 是用于形式直方图的“收集箱”的个数</p>
+<ul>
+<li><p>函数 <code>bar(horz, v, width)</code></p>
+<p>​    v 是一个行向量， 它包含将被绘制的点；horz 是一个与v有着相同维数的向量，它包含水平标度值得增量；width 是一个值在 0 ~ 1 之间的数</p>
+<p>​    <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/horz.jpg" alt="img"></p>
+</li>
+</ul>
+<ul>
+<li><p>函数 <code>stem(horz, v, &#39;color_linestyle_marker&#39;, &#39;fill&#39;)</code></p>
+<p>​    生成一幅杆状图，类似于条形图</p>
+</li>
+<li><p>函数<code>plot(horz, v, &#39;color_linestyle_market&#39;)</code></p>
+<p>​    该函数将一组点用直线连起来</p>
+<p><strong>直方图均衡化</strong></p>
+<p>​    通常使用直方图并调用直方图均衡化技术来处理离散灰度级</p>
+<p>​    <code>g = histeq(f, nlev)</code></p>
+<p>​    f 为输入图像，nlev 是为输出图像指定的灰度级数</p>
+<p><strong>直方图匹配（规定化）</strong></p>
+<p>​    <code>g = histeq(f, hspec)</code></p>
+<p>​    f 为输入图像，hspec 为指定的直方图，g 为输出图像，其直方图近似于指    定的 直方图hspec</p>
+</li>
+</ul>
+<h2 id="空间滤波"><a href="#空间滤波" class="headerlink" title="空间滤波"></a>空间滤波</h2><p>​    <strong>线性空间滤波</strong></p>
+<p>​    一维相关和卷积操作的不同是：卷积颠倒函数顺序会产生相同的结果，而一维相关不同；但是若函数对称移动，则卷积和相关操作会产生相同的结果。</p>
+<p>​    <em>使用旋转后的滤波掩模时，卷积就是相关</em></p>
+<p>​    <strong>imfilter</strong></p>
+<p>​    工具箱使用该函数来实现线性空间滤波</p>
+<p>​    <code>g = imfilter(f, w, filtering_mode, boundary_options, size_options)</code></p>
+<p>​    其中，f 是输入图像、w为滤波掩模、g为滤波结果</p>
+<p>​    filtering_mode 用于指定在滤波过程中是使用相关还是卷积</p>
+<p>​    boundart_options 用于处理边界充零问题，边界的大小由滤波器的大小确定</p>
+<p>​    size_options 可以是 ‘same’ 或 ‘full’</p>
+<p>​    <strong>两种使用卷积运算的方法</strong></p>
+<p>​    一、 <code>g = imfilter(f, w, &#39;conv&#39;, &#39;replicate&#39;)</code></p>
+<p>​    二、<code>rot90(w, 2)</code>将w旋转$180^。$</p>
+<p>​    然后使用 <code>imfilter(f, w, &#39;replicate&#39;)</code></p>
+<p>​    <strong>非线性空间滤波</strong></p>
+<p>​    非线性空间滤波基于非线性操作，这种操作包含了一个邻域的像素。</p>
+<p>​    <strong>colfilt函数</strong></p>
+<p>​    <code>g = colfilt(f, [m n], &#39;sliding&#39;, @fun, parameters)</code></p>
+<p>​    @成为函数句柄，它是一种MATLAB数据类型，它包含有引用函数用到的一些信息。</p>
+<p>​    <strong>padarray函数</strong></p>
+<p>​    <code>fp = padarray(f, [r c], method, direction)</code></p>
+<h2 id="图像处理工具箱的标准空间滤波器"><a href="#图像处理工具箱的标准空间滤波器" class="headerlink" title="图像处理工具箱的标准空间滤波器"></a>图像处理工具箱的标准空间滤波器</h2><p>​    <strong>线性空间滤波器</strong></p>
+<p>​    <strong>fspecial函数</strong></p>
+<p>​    <code>w = fspecial(&#39;type&#39;, parameters)</code></p>
+<p>​    type为滤波器类型，parameters 进一步定义了指定的滤波器</p>
+<p>​    使用imfilter滤波后的输出图像与输入图像是同类图像，所以负值将被截掉，</p>
+<p>​    因此可以通过在滤波前将f转换为double类图像</p>
+<p>​    <strong>非线性空间滤波器</strong></p>
+<p>​    <strong>ordfilt2函数</strong></p>
+<p>​    该函数可以生成 排序滤波器</p>
+<p>​    <code>g = ordfilt2(f, order, domain)</code></p>
+<p>​    <strong>medfilt2函数</strong></p>
+<p>​    利用函数medfilt2进行中值滤波</p>
+<p>​    中值滤波是降低图像椒盐噪声的有效工具</p>
+<p>​    使用默认设置的中值滤波很好地降低了噪声，但在图片边界可能会出现黑色的斑点，跟图像本身的属性有关，此时用函数 <strong>symmetric</strong>来减弱即可</p>
+<p>intrans.m文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">function g = intrans(f, varargin)</div><div class="line">error(nargchk(2, 4, nargin))</div><div class="line">classin = class(f);</div><div class="line">if strcmp(class(f), &apos;double&apos;) &amp; max(f(:)) &gt; 1 &amp; ~strcmp(varargin&#123;1&#125;, &apos;log&apos;)</div><div class="line">    f = mat2gray(f);</div><div class="line">else % Convert to double, regardless of class(f).</div><div class="line">    f = im2double(f);</div><div class="line">end</div><div class="line">method = varargin&#123;1&#125;;</div><div class="line">switch method</div><div class="line">    case &apos;neg&apos;</div><div class="line">        g = imcomplement(f);</div><div class="line">    case &apos;log&apos;</div><div class="line">        if length(varargin) == 1</div><div class="line">            c = 1;</div><div class="line">        elseif length(varargin) == 2</div><div class="line">            c = varargin&#123;2&#125;;</div><div class="line">        elseif length(varargin) == 3</div><div class="line">            c = varargin&#123;2&#125;;</div><div class="line">            classin = varargin&#123;3&#125;;</div><div class="line">        else </div><div class="line">            error(&apos;Incorrect number of inputs for the log option.&apos;)</div><div class="line">        end</div><div class="line">        g = c*(log(1 + double(f)));</div><div class="line">    case &apos;gamma&apos;</div><div class="line">        if length(varargin) &lt; 2</div><div class="line">            error(&apos;Not enough inputs for the gamma option.&apos;)</div><div class="line">        end </div><div class="line">        gam = varargin&#123;2&#125;;</div><div class="line">        g = imadjust(f, [ ], [ ], gam);</div><div class="line">    case &apos;stretch&apos;</div><div class="line">        if length(varargin) == 1</div><div class="line">            m = mean2(f);</div><div class="line">            E = 4.0;</div><div class="line">        elseif length(varargin) == 3</div><div class="line">            m = varargin&#123;2&#125;;</div><div class="line">            E = varargin&#123;3&#125;;</div><div class="line">        else error(&apos;Incorrect number of inputs for the stretch option.&apos;)</div><div class="line">        end </div><div class="line">        g = 1./(1 + (m./(f + eps)).^E);</div><div class="line">    otherwise</div><div class="line">        error(&apos;Unknown enhancement method.&apos;)</div><div class="line">end</div><div class="line">g = changeclass(classin, g);</div></pre></td></tr></table></figure>
+<p>twomodegauss.m文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function p = twomodegauss(m1, sig1, m2, sig2, A1, A2, k)</div><div class="line">c1 = A1 * (1 / ((2 * pi) ^ 0.5) * sig1);</div><div class="line">k1 = 2 * (sig1 ^ 2);</div><div class="line">c2 = A2 * (1 / ((2 * pi) ^ 0.5) * sig2);</div><div class="line">k2 = 2 * (sig2 ^ 2);</div><div class="line">z = linspace(0, 1, 256);</div><div class="line"></div><div class="line">p = k + c1 * exp(-((z - m1) .^ 2)./k1) + c2 * exp(-((z - m2) .^ 2) ./ k2);</div><div class="line">p = p ./ sum(p(:));</div></pre></td></tr></table></figure>
+<p>manualhist.m文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">function p = manualhist</div><div class="line"></div><div class="line">repeats = true;</div><div class="line">quitnow = &apos;x&apos;;</div><div class="line">p = twomodegauss(0.15, 0.05, 0.75, 0.05, 1, 0.07, 0.002);</div><div class="line"></div><div class="line">while repeats  </div><div class="line">   s = input(&apos;Enter m1, sig1, m2, sig2, A1, A2, k OR x to quit:&apos;,&apos;s&apos;);</div><div class="line">   if s == quitnow </div><div class="line">      break</div><div class="line">   end</div><div class="line">   </div><div class="line">   v = str2num(s);</div><div class="line">   if numel(v) ~= 7</div><div class="line">      disp(&apos;Incorrect number of inputs&apos;)</div><div class="line">      continue</div><div class="line">   end</div><div class="line">   </div><div class="line">   p = twomodegauss(v(1), v(2), v(3), v(4), v(5), v(6), v(7));</div><div class="line">   figure, plot(p)</div><div class="line">   xlim([0 255])</div><div class="line">end</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/基本原理/" rel="next" title="基本原理">
+                <i class="fa fa-chevron-left"></i> 基本原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cristal" />
+          <p class="site-author-name" itemprop="name">Cristal</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#亮度变换函数"><span class="nav-number">1.</span> <span class="nav-text">亮度变换函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直方图处理与函数绘图"><span class="nav-number">2.</span> <span class="nav-text">直方图处理与函数绘图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间滤波"><span class="nav-number">3.</span> <span class="nav-text">空间滤波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像处理工具箱的标准空间滤波器"><span class="nav-number">4.</span> <span class="nav-text">图像处理工具箱的标准空间滤波器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cristal</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
