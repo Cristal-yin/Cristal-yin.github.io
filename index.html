@@ -200,7 +200,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -210,7 +210,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -282,7 +282,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T19:50:07+08:00">
                 2017-06-20
@@ -320,91 +320,19 @@
 
       
         
-          
-            <h2 id="亮度变换函数"><a href="#亮度变换函数" class="headerlink" title="亮度变换函数"></a>亮度变换函数</h2><p>​    <em>s = T(r)</em></p>
+          <h2 id="亮度变换函数"><a href="#亮度变换函数" class="headerlink" title="亮度变换函数"></a>亮度变换函数</h2><p>​    <em>s = T(r)</em></p>
 <p>​    r表示图像f中相应点(x,y)的亮度，s表示图像g中相依点(x,y)的亮度</p>
 <p>​    <strong>函数imadjust</strong></p>
 <p>​    此函数是对灰度图像进行亮度转换的基本IPT工具</p>
 <p>​    语法：</p>
 <p>​    <code>g = imadjust(f,[low_in high_in]n [low_out high_out], gamma)</code></p>
-<p>​    <strong>对数和对比度拉伸变换</strong></p>
-<p>​    <code>g = c*log(1 + double(f))</code></p>
-<p>​    <code>&gt;&gt;g = im2uint8(mat2gray(log(1 + double(f))));</code></p>
-<p>​    <strong>亮度变换的一些M函数</strong></p>
-<p>​    g = changeclass(newclass, f)</p>
-<p>​    <strong>亮度标度的M函数</strong></p>
-<p>​    <code>g = gscale(f, method, low, high)</code></p>
-<p>​    f 是将被标度的图像，method的有效值为 ‘full8’ 和 ‘full16’,若使用这两个有效    值其中一个，则可以在两种表换中省略参数low 和high，method 的第三个有效值为 ‘minmax’ 此时必须给出 low与high 在范围 [0, 1]内</p>
-<h2 id="直方图处理与函数绘图"><a href="#直方图处理与函数绘图" class="headerlink" title="直方图处理与函数绘图"></a>直方图处理与函数绘图</h2><p>​    <strong>生成并绘制直方图</strong></p>
-<p>​    h($r_k$) = $n_k$</p>
-<p>​    归一化直方图：</p>
-<p>​    p($r_k$) = $\tfrac{h(r_k)}{n}$ = $\tfrac{n_k}{n}$</p>
-<p>​    <strong>imhist函数</strong></p>
-<p>​    <code>h = imhist(f, b)</code></p>
-<p>​    其中， f 为输入图像， h为其直方图 $h(r_k)$ ,b 是用于形式直方图的“收集箱”的个数</p>
-<ul>
-<li><p>函数 <code>bar(horz, v, width)</code></p>
-<p>​    v 是一个行向量， 它包含将被绘制的点；horz 是一个与v有着相同维数的向量，它包含水平标度值得增量；width 是一个值在 0 ~ 1 之间的数</p>
-<p>​    <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/horz.jpg" alt="img"></p>
-</li>
-</ul>
-<ul>
-<li><p>函数 <code>stem(horz, v, &#39;color_linestyle_marker&#39;, &#39;fill&#39;)</code></p>
-<p>​    生成一幅杆状图，类似于条形图</p>
-</li>
-<li><p>函数<code>plot(horz, v, &#39;color_linestyle_market&#39;)</code></p>
-<p>​    该函数将一组点用直线连起来</p>
-<p><strong>直方图均衡化</strong></p>
-<p>​    通常使用直方图并调用直方图均衡化技术来处理离散灰度级</p>
-<p>​    <code>g = histeq(f, nlev)</code></p>
-<p>​    f 为输入图像，nlev 是为输出图像指定的灰度级数</p>
-<p><strong>直方图匹配（规定化）</strong></p>
-<p>​    <code>g = histeq(f, hspec)</code></p>
-<p>​    f 为输入图像，hspec 为指定的直方图，g 为输出图像，其直方图近似于指    定的 直方图hspec</p>
-</li>
-</ul>
-<h2 id="空间滤波"><a href="#空间滤波" class="headerlink" title="空间滤波"></a>空间滤波</h2><p>​    <strong>线性空间滤波</strong></p>
-<p>​    一维相关和卷积操作的不同是：卷积颠倒函数顺序会产生相同的结果，而一维相关不同；但是若函数对称移动，则卷积和相关操作会产生相同的结果。</p>
-<p>​    <em>使用旋转后的滤波掩模时，卷积就是相关</em></p>
-<p>​    <strong>imfilter</strong></p>
-<p>​    工具箱使用该函数来实现线性空间滤波</p>
-<p>​    <code>g = imfilter(f, w, filtering_mode, boundary_options, size_options)</code></p>
-<p>​    其中，f 是输入图像、w为滤波掩模、g为滤波结果</p>
-<p>​    filtering_mode 用于指定在滤波过程中是使用相关还是卷积</p>
-<p>​    boundart_options 用于处理边界充零问题，边界的大小由滤波器的大小确定</p>
-<p>​    size_options 可以是 ‘same’ 或 ‘full’</p>
-<p>​    <strong>两种使用卷积运算的方法</strong></p>
-<p>​    一、 <code>g = imfilter(f, w, &#39;conv&#39;, &#39;replicate&#39;)</code></p>
-<p>​    二、<code>rot90(w, 2)</code>将w旋转$180^。$</p>
-<p>​    然后使用 <code>imfilter(f, w, &#39;replicate&#39;)</code></p>
-<p>​    <strong>非线性空间滤波</strong></p>
-<p>​    非线性空间滤波基于非线性操作，这种操作包含了一个邻域的像素。</p>
-<p>​    <strong>colfilt函数</strong></p>
-<p>​    <code>g = colfilt(f, [m n], &#39;sliding&#39;, @fun, parameters)</code></p>
-<p>​    @成为函数句柄，它是一种MATLAB数据类型，它包含有引用函数用到的一些信息。</p>
-<p>​    <strong>padarray函数</strong></p>
-<p>​    <code>fp = padarray(f, [r c], method, direction)</code></p>
-<h2 id="图像处理工具箱的标准空间滤波器"><a href="#图像处理工具箱的标准空间滤波器" class="headerlink" title="图像处理工具箱的标准空间滤波器"></a>图像处理工具箱的标准空间滤波器</h2><p>​    <strong>线性空间滤波器</strong></p>
-<p>​    <strong>fspecial函数</strong></p>
-<p>​    <code>w = fspecial(&#39;type&#39;, parameters)</code></p>
-<p>​    type为滤波器类型，parameters 进一步定义了指定的滤波器</p>
-<p>​    使用imfilter滤波后的输出图像与输入图像是同类图像，所以负值将被截掉，</p>
-<p>​    因此可以通过在滤波前将f转换为double类图像</p>
-<p>​    <strong>非线性空间滤波器</strong></p>
-<p>​    <strong>ordfilt2函数</strong></p>
-<p>​    该函数可以生成 排序滤波器</p>
-<p>​    <code>g = ordfilt2(f, order, domain)</code></p>
-<p>​    <strong>medfilt2函数</strong></p>
-<p>​    利用函数medfilt2进行中值滤波</p>
-<p>​    中值滤波是降低图像椒盐噪声的有效工具</p>
-<p>​    使用默认设置的中值滤波很好地降低了噪声，但在图片边界可能会出现黑色的斑点，跟图像本身的属性有关，此时用函数 <strong>symmetric</strong>来减弱即可</p>
-<p>intrans.m文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">function g = intrans(f, varargin)</div><div class="line">error(nargchk(2, 4, nargin))</div><div class="line">classin = class(f);</div><div class="line">if strcmp(class(f), &apos;double&apos;) &amp; max(f(:)) &gt; 1 &amp; ~strcmp(varargin&#123;1&#125;, &apos;log&apos;)</div><div class="line">    f = mat2gray(f);</div><div class="line">else % Convert to double, regardless of class(f).</div><div class="line">    f = im2double(f);</div><div class="line">end</div><div class="line">method = varargin&#123;1&#125;;</div><div class="line">switch method</div><div class="line">    case &apos;neg&apos;</div><div class="line">        g = imcomplement(f);</div><div class="line">    case &apos;log&apos;</div><div class="line">        if length(varargin) == 1</div><div class="line">            c = 1;</div><div class="line">        elseif length(varargin) == 2</div><div class="line">            c = varargin&#123;2&#125;;</div><div class="line">        elseif length(varargin) == 3</div><div class="line">            c = varargin&#123;2&#125;;</div><div class="line">            classin = varargin&#123;3&#125;;</div><div class="line">        else </div><div class="line">            error(&apos;Incorrect number of inputs for the log option.&apos;)</div><div class="line">        end</div><div class="line">        g = c*(log(1 + double(f)));</div><div class="line">    case &apos;gamma&apos;</div><div class="line">        if length(varargin) &lt; 2</div><div class="line">            error(&apos;Not enough inputs for the gamma option.&apos;)</div><div class="line">        end </div><div class="line">        gam = varargin&#123;2&#125;;</div><div class="line">        g = imadjust(f, [ ], [ ], gam);</div><div class="line">    case &apos;stretch&apos;</div><div class="line">        if length(varargin) == 1</div><div class="line">            m = mean2(f);</div><div class="line">            E = 4.0;</div><div class="line">        elseif length(varargin) == 3</div><div class="line">            m = varargin&#123;2&#125;;</div><div class="line">            E = varargin&#123;3&#125;;</div><div class="line">        else error(&apos;Incorrect number of inputs for the stretch option.&apos;)</div><div class="line">        end </div><div class="line">        g = 1./(1 + (m./(f + eps)).^E);</div><div class="line">    otherwise</div><div class="line">        error(&apos;Unknown enhancement method.&apos;)</div><div class="line">end</div><div class="line">g = changeclass(classin, g);</div></pre></td></tr></table></figure>
-<p>twomodegauss.m文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function p = twomodegauss(m1, sig1, m2, sig2, A1, A2, k)</div><div class="line">c1 = A1 * (1 / ((2 * pi) ^ 0.5) * sig1);</div><div class="line">k1 = 2 * (sig1 ^ 2);</div><div class="line">c2 = A2 * (1 / ((2 * pi) ^ 0.5) * sig2);</div><div class="line">k2 = 2 * (sig2 ^ 2);</div><div class="line">z = linspace(0, 1, 256);</div><div class="line"></div><div class="line">p = k + c1 * exp(-((z - m1) .^ 2)./k1) + c2 * exp(-((z - m2) .^ 2) ./ k2);</div><div class="line">p = p ./ sum(p(:));</div></pre></td></tr></table></figure>
-<p>manualhist.m文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">function p = manualhist</div><div class="line"></div><div class="line">repeats = true;</div><div class="line">quitnow = &apos;x&apos;;</div><div class="line">p = twomodegauss(0.15, 0.05, 0.75, 0.05, 1, 0.07, 0.002);</div><div class="line"></div><div class="line">while repeats  </div><div class="line">   s = input(&apos;Enter m1, sig1, m2, sig2, A1, A2, k OR x to quit:&apos;,&apos;s&apos;);</div><div class="line">   if s == quitnow </div><div class="line">      break</div><div class="line">   end</div><div class="line">   </div><div class="line">   v = str2num(s);</div><div class="line">   if numel(v) ~= 7</div><div class="line">      disp(&apos;Incorrect number of inputs&apos;)</div><div class="line">      continue</div><div class="line">   end</div><div class="line">   </div><div class="line">   p = twomodegauss(v(1), v(2), v(3), v(4), v(5), v(6), v(7));</div><div class="line">   figure, plot(p)</div><div class="line">   xlim([0 255])</div><div class="line">end</div></pre></td></tr></table></figure>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/20/亮度变换与空间滤波/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -475,7 +403,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T19:47:14+08:00">
                 2017-06-20
@@ -513,157 +441,18 @@
 
       
         
-          
-            <h2 id="数字图像的表示"><a href="#数字图像的表示" class="headerlink" title="数字图像的表示"></a>数字图像的表示</h2><p>​    坐标约定：</p>
+          <h2 id="数字图像的表示"><a href="#数字图像的表示" class="headerlink" title="数字图像的表示"></a>数字图像的表示</h2><p>​    坐标约定：</p>
 <ul>
 <li>多数图像处理书籍中所用的坐标约定</li>
 <li>图形处理工具箱中所用的坐标约定</li>
 </ul>
-<h2 id="图像的矩阵表示"><a href="#图像的矩阵表示" class="headerlink" title="图像的矩阵表示"></a>图像的矩阵表示</h2><h2 id="读取图像"><a href="#读取图像" class="headerlink" title="读取图像"></a>读取图像</h2><p>​    <code>&gt;&gt; f = imread(filename);</code></p>
-<p>​    filename 是一个含有图像文件全名的字符串，此处可以用相对路径和绝对路径</p>
-<p>​    <code>&gt;&gt;size(f)</code></p>
-<p>​    函数size可以给出一幅图像的行数和列数</p>
-<p>​    <code>&gt;&gt; whos f</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">函数whos可以显示出一个数组的附加信息</div></pre></td></tr></table></figure>
-<h2 id="显示图像"><a href="#显示图像" class="headerlink" title="显示图像"></a>显示图像</h2><p>​    <code>&gt;&gt; imshow(f,G)</code></p>
-<p>​    f是一个图像数组，G是显示该图像的灰度级数（若G省略，则默认的灰度级数是256）</p>
-<p>​    其他表示法：</p>
-<p>​    <code>&gt;&gt; imshow(f,[low,high])</code></p>
-<p>​    <code>&gt;&gt; imshow(f,[ ])</code></p>
-<p>​    同时显示两个图像</p>
-<p>​    <code>&gt;&gt; imshow(f), figure, imshow(g)</code></p>
-<h2 id="保存图像"><a href="#保存图像" class="headerlink" title="保存图像"></a>保存图像</h2><p>​    <code>&gt;&gt; imwrite(f,&#39;filename&#39;)</code></p>
-<p>​    <code>&gt;&gt; imwrite(f,&#39;firstImage&#39;,&#39;tif&#39;)</code></p>
-<p>​    或</p>
-<p>​    <code>&gt;&gt; imwrite(f,&#39;firstImage.tif&#39;)</code></p>
-<h4 id="使用imfinfo保存图像"><a href="#使用imfinfo保存图像" class="headerlink" title="使用imfinfo保存图像"></a>使用imfinfo保存图像</h4><p>​    <code>&gt;&gt; imfinfo filename</code></p>
-<p>​    执行完此命令后会输出该图片的相关信息，可通过相关信息了解该图片相关属    性</p>
-<h4 id="imwrite的另一种常用但只适用于tif图像的语法"><a href="#imwrite的另一种常用但只适用于tif图像的语法" class="headerlink" title="imwrite的另一种常用但只适用于tif图像的语法"></a>imwrite的另一种常用但只适用于tif图像的语法</h4><p>​    <code>imwrite(g,&#39;filename.tif&#39;,&#39;compression&#39;,&#39;parameter&#39;,&#39;resolution&#39;,[colres rowres])</code></p>
-<h4 id="利用print保存图像可以获得更多的输出参数"><a href="#利用print保存图像可以获得更多的输出参数" class="headerlink" title="利用print保存图像可以获得更多的输出参数"></a>利用print保存图像可以获得更多的输出参数</h4><p>​    <code>print -fno -dfileformat -rreson filename</code></p>
-<h2 id="图像类和类型间的转换"><a href="#图像类和类型间的转换" class="headerlink" title="图像类和类型间的转换"></a>图像类和类型间的转换</h2><h4 id="im2uint8"><a href="#im2uint8" class="headerlink" title="im2uint8"></a>im2uint8</h4><p>​    <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/2.jpg" alt="img"></p>
-<p>​    函数im2uint8将输入中所有小于0 的值设置为0 ，所有大于1 的值设置为    255 再将所有的数都乘255,并将结果四舍五入为最接近的整数后，就完成了转换。</p>
-<h4 id="im2double"><a href="#im2double" class="headerlink" title="im2double"></a>im2double</h4><h2 id="数组索引"><a href="#数组索引" class="headerlink" title="数组索引"></a>数组索引</h2><p>​    作用：简化了数组操作，而且提高了程序的运行效率。</p>
-<h4 id="向量索引"><a href="#向量索引" class="headerlink" title="向量索引"></a>向量索引</h4><ul>
-<li><p>向量的第一个元素下标为1</p>
-</li>
-<li><p><code>.&#39;</code> 行向量转换为列向量</p>
-</li>
-<li><p>函数 linkspace</p>
-<p>x = linspace(a, b, n)</p>
-</li>
-</ul>
-<h4 id="矩阵索引"><a href="#矩阵索引" class="headerlink" title="矩阵索引"></a>矩阵索引</h4><ul>
-<li>矩阵中分号的作用，与前面提到的取消命令的输出或在一行中写入多条命令时所用分号的作用是不同的</li>
-<li>矩阵中最后一个元素的索引可用 end 来代替</li>
-<li>​</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/3.jpg" alt="img"></p>
-<p>​    其中E显示了A中行1列2，行3列2，行1列3，行3列3对应的值</p>
-<ul>
-<li><p>使用数组索引对图像进行简单的操作</p>
-<p>翻转</p>
-<p><strong>此处遇到的问题：</strong></p>
-<p>​    <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/four.jpg" alt="img"></p>
-<p>​</p>
-<p>当用此图片进行翻转时，出现如下状况:</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/reserval.jpg" alt="img"></p>
-<p>​    经过检验发现 size(f) 有三个参数，上网查询知道是由于原图片为彩色图像，改为黑白图像即可</p>
-<p> <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/man.jpg" alt="原图像"></p>
-<p>​    <strong>原图像</strong></p>
-<p>​    <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/re-man.jpg" alt="翻转后的图像"></p>
-<p>​    <strong>翻转后的图像</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/part.jpg" alt="部分图像"></p>
-<p>​    <strong>部分图像</strong></p>
-<h2 id="一些重要的标准数组"><a href="#一些重要的标准数组" class="headerlink" title="一些重要的标准数组"></a>一些重要的标准数组</h2><ul>
-<li>zeros(M,N)</li>
-<li>ones(M,N)</li>
-<li>true(M,N)</li>
-<li>false(M,N)</li>
-<li>magic(M)</li>
-<li>rand(M,N)</li>
-<li>randn(M,N)</li>
-</ul>
-<h2 id="M函数编程简介"><a href="#M函数编程简介" class="headerlink" title="M函数编程简介"></a>M函数编程简介</h2><h4 id="M文件组成部分"><a href="#M文件组成部分" class="headerlink" title="M文件组成部分"></a>M文件组成部分</h4><ul>
-<li>函数定义行</li>
-<li>H1行</li>
-<li>帮助文本</li>
-<li>函数体</li>
-<li><p>命令</p>
-<p>函数行：</p>
-</li>
-</ul>
-<p>​    函数定义行的形式为：function [outputs] = name(inputs)</p>
-<p> 输入必须在（）内，输出必须在[ ]内，但是如果输出只有一个变量则可以    省略[ ]</p>
-<p>​    H1行：</p>
-<p>​    该行提供了关于M文件的重要摘要信息</p>
-<p>​    帮助文本：</p>
-<p>​    跟在H1行后面的文本块，为函数提供注释或在线帮助。</p>
-<p>​    函数体：</p>
-<p>​    包含了所有执行计算并给输出变量赋值的MATLAB代码。</p>
-<p>​    例如执行sumprod.m文件</p>
-<p>​    <code>&gt;&gt; edit sumprod</code></p>
-<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><ul>
-<li>执行数值计算的算术运算符</li>
-<li>在数量上比较操作数的关系运算符</li>
-<li>执行韩式AND、OR和NOT的逻辑运算符</li>
-</ul>
-<p>improd.m文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function [p, pmax, pmin, pn] = improd(f, g)</div><div class="line">fd = double(f);</div><div class="line">gd = double(g);</div><div class="line">p = fd.*gd;</div><div class="line">pmax = max(p(:));</div><div class="line">pmin = min(p(:));</div><div class="line">pn = mat2gray(p);</div></pre></td></tr></table></figure>
-<h4 id="一些重要的变量和常数"><a href="#一些重要的变量和常数" class="headerlink" title="一些重要的变量和常数"></a><strong>一些重要的变量和常数</strong></h4><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ans</td>
-<td>最新的答案</td>
-</tr>
-<tr>
-<td>eps</td>
-<td>浮点数的相对精度</td>
-</tr>
-<tr>
-<td>i(或j)</td>
-<td>虚数单位</td>
-</tr>
-<tr>
-<td>NaN或nan</td>
-<td>Not-a-Number</td>
-</tr>
-<tr>
-<td>pi</td>
-<td>3.14159265358979</td>
-</tr>
-<tr>
-<td>realmax</td>
-<td>计算机所能表示的最大浮点数</td>
-</tr>
-<tr>
-<td>realmin</td>
-<td>计算机所能表示的最小浮点数</td>
-</tr>
-<tr>
-<td>version</td>
-</tr>
-</tbody>
-</table>
-<h4 id="流控制"><a href="#流控制" class="headerlink" title="流控制"></a>流控制</h4><p>​    if、else、for 、 while、 break、continue…</p>
-<p>average.m文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function av = average(A) </div><div class="line">if ndims(A) &gt; 2</div><div class="line">    error(&apos;The dimensions of the input cannot exceed 2.&apos;)</div><div class="line">end</div><div class="line">av = sum(A(:))/length(A(:));</div></pre></td></tr></table></figure>
-<p>​    将例2.12中的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">for r = rx:rowhogh</div><div class="line"></div><div class="line">			xcount = xcount + 1;</div><div class="line"></div><div class="line">			ycount = 0;</div><div class="line"></div><div class="line">			for c  = cy:colhigh</div><div class="line"></div><div class="line">				ycount = ycount + 1;</div><div class="line"></div><div class="line">				s(xcount,ycount) = f(r, c);</div><div class="line"></div><div class="line">			end</div><div class="line"></div><div class="line">		end</div></pre></td></tr></table></figure>
-<p>​    for改成while</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">r = rx;</div><div class="line">while r~=rowhigh</div><div class="line">	r = r + 1;</div><div class="line">	xcount = xcount + 1;</div><div class="line">	ycount = 0;</div><div class="line">	c = cy;</div><div class="line">	while c~=colhigh</div><div class="line">    	c = c + 1;</div><div class="line">    	ycount = ycount + 1;</div><div class="line">    	s(xcount,ycount) = f(r, c);</div><div class="line">	end</div><div class="line">end</div></pre></td></tr></table></figure>
-<p>#### </p>
-<h4 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h4><p>twodsin.m文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function [rt, f, g] = twodsin(A, u0, v0, M, N)</div><div class="line">tic   </div><div class="line">for r = 1:M</div><div class="line">   u0x = u0 * (r - 1);</div><div class="line">   for c = 1:N</div><div class="line">      v0y = v0 * (c - 1);</div><div class="line">      f(r, c) = A * sin(u0x + v0y);</div><div class="line">   end</div><div class="line">end</div><div class="line">t1 = toc;   </div><div class="line">tic   </div><div class="line">r = 0:M - 1;</div><div class="line">c = 0:N - 1;</div><div class="line">[C, R] = meshgrid(c, r);</div><div class="line">g = A * sin(u0 * R + v0 * C);</div><div class="line">t2 = toc;  </div><div class="line">rt = t1/(t2 + eps); % Use eps in case t2 is close to 0</div></pre></td></tr></table></figure>
-<h4 id="交互式I-O"><a href="#交互式I-O" class="headerlink" title="交互式I/O"></a>交互式I/O</h4><h4 id="单元数组与结构简介"><a href="#单元数组与结构简介" class="headerlink" title="单元数组与结构简介"></a>单元数组与结构简介</h4>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/20/基本原理/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -734,7 +523,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T19:45:11+08:00">
                 2017-06-20
@@ -772,24 +561,17 @@
 
       
         
-          
-            <h2 id="Matlab（matrix-laboratory）"><a href="#Matlab（matrix-laboratory）" class="headerlink" title="Matlab（matrix laboratory）"></a>Matlab（matrix laboratory）</h2><ul>
+          <h2 id="Matlab（matrix-laboratory）"><a href="#Matlab（matrix-laboratory）" class="headerlink" title="Matlab（matrix laboratory）"></a>Matlab（matrix laboratory）</h2><ul>
 <li>matlab 对于基数计算来说是一种高性能的语言</li>
 <li>matlab 是一种交互式系统</li>
 </ul>
-<h2 id="IPT-Image-Process-Toolkit"><a href="#IPT-Image-Process-Toolkit" class="headerlink" title="IPT(Image Process Toolkit)"></a>IPT(Image Process Toolkit)</h2><p>​    ipt是为手机用户提供多媒体信息留言的应用程序</p>
-<h3 id="主要作用："><a href="#主要作用：" class="headerlink" title="主要作用："></a>主要作用：</h3><p>​    在需要快速响应，协同工作的时候，发送方用户可以通过IPT系统，使用语音、文字、信息等多种方式与他人或者系统快速进行沟通。</p>
-<h2 id="Matlab和图像处理工具箱的背景知识"><a href="#Matlab和图像处理工具箱的背景知识" class="headerlink" title="Matlab和图像处理工具箱的背景知识"></a>Matlab和图像处理工具箱的背景知识</h2><ul>
-<li>数学和计算</li>
-<li>算法开发</li>
-<li>数据获取</li>
-<li>建模、模拟和原型设计</li>
-<li>数据分析、研究和可视化</li>
-<li>科学和工程图形</li>
-<li>应用开发，包括图像用户界面构建</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/20/绪言/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -860,7 +642,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-18T14:30:05+08:00">
                 2017-06-18
@@ -973,7 +755,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-16T23:59:12+08:00">
                 2017-06-16
@@ -1015,7 +797,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/06/16/Digital-images-processing/#more" rel="contents">
-              Weiterlesen &raquo;
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1097,7 +879,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
                 <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -1151,7 +933,7 @@
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
