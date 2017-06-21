@@ -112,10 +112,14 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flash.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flog.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/baby.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/RGB_conponment.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/lapmask.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad2.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorseg.jpg">
-<meta property="og:updated_time" content="2017-06-21T03:38:29.797Z">
+<meta property="og:updated_time" content="2017-06-21T03:45:13.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="彩色图像处理">
 <meta name="twitter:description" content="MATLAB中彩色图像的表示方法 RGB 图像  数据类型为double 型 rgb_image = cat(3, fR, fG, fB)">
@@ -473,15 +477,28 @@
 <p><strong>RGB图像及其分量图像 </strong></p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">f = imread(&apos;iris.tif&apos;);</div><div class="line"></div><div class="line">fR = f(:, :, 1);</div><div class="line"></div><div class="line">fG = f(:, :, 2);</div><div class="line"></div><div class="line">fB = f(:, :, 3);</div><div class="line">​</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    **图片:**</div><div class="line"></div><div class="line">  ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/RGB_conponment.jpg)</div><div class="line"></div><div class="line">    **HSI分量图像**</div><div class="line"></div><div class="line">   ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg)  **平滑后图像**</div><div class="line"></div><div class="line">    ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg)</div><div class="line"></div><div class="line">- 彩色图像锐化</div><div class="line"></div><div class="line">  **拉普拉斯算子**</div></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<p>w = fspecial(‘average’,5);<br>fa = imfilter(f, w, ‘replicate’);<br>lapmask = [1 1 1; 1 -8 1; 1 1 1];<br>fen = imsubtract(fa, imfilter(fa, lapmask, ‘replicate’));</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  **图片:**</div><div class="line"></div><div class="line">  ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/lapmask.jpg)</div><div class="line"></div><div class="line">### 在RGB向量空间直接处理</div><div class="line"></div><div class="line"> **彩色边缘检测和区域分割**</div><div class="line"></div><div class="line">- **使用梯度的彩色边缘检测**</div><div class="line"></div><div class="line">  **函数colorgrad实现RGB图像的彩色梯度**</div><div class="line"></div><div class="line">  f 是一幅RGB图像，T是范围[0, 1]内的一个可选阈值；</div><div class="line"></div><div class="line">  VG 是RGB 向量梯度,A是以弧度计的角度，用于实现RGB的彩色梯度</div><div class="line"></div><div class="line">  PPG是对单独彩色平面的二维梯度求和形成的梯度</div></pre></td></tr></table></figure>
-<p>r = f(:,:,1);<br>g = f(:,:,2);<br>b = f(:,:,3);<br>[VG, A, PPG] = colorgrad(f);<br>```</p>
-</blockquote>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">f = imread(&apos;iris.tif&apos;);</div><div class="line"></div><div class="line">fR = f(:, :, 1);</div><div class="line"></div><div class="line">fG = f(:, :, 2);</div><div class="line"></div><div class="line">fB = f(:, :, 3);</div></pre></td></tr></table></figure>
+<p>  <strong>图片:</strong></p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/RGB_conponment.jpg" alt=""></p>
+<p>  <strong>HSI分量图像</strong></p>
+<p> <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg" alt="">  <strong>平滑后图像</strong></p>
+<p>  <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg" alt=""></p>
+</li>
+<li><p>彩色图像锐化</p>
+<p><strong>拉普拉斯算子</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = fspecial(&apos;average&apos;,5);</div><div class="line">&gt;&gt; fa = imfilter(f, w, &apos;replicate&apos;);</div><div class="line">&gt;&gt; lapmask = [1 1 1; 1 -8 1; 1 1 1];</div><div class="line">&gt;&gt; fen = imsubtract(fa, imfilter(fa, lapmask, &apos;replicate&apos;));</div></pre></td></tr></table></figure>
+<p><strong>图片:</strong></p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/lapmask.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="在RGB向量空间直接处理"><a href="#在RGB向量空间直接处理" class="headerlink" title="在RGB向量空间直接处理"></a>在RGB向量空间直接处理</h3><p> <strong>彩色边缘检测和区域分割</strong></p>
+<ul>
+<li><p><strong>使用梯度的彩色边缘检测</strong></p>
+<p><strong>函数colorgrad实现RGB图像的彩色梯度</strong></p>
+<p>f 是一幅RGB图像，T是范围[0, 1]内的一个可选阈值；</p>
+<p>VG 是RGB 向量梯度,A是以弧度计的角度，用于实现RGB的彩色梯度</p>
+<p>PPG是对单独彩色平面的二维梯度求和形成的梯度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; r = f(:,:,1);</div><div class="line">&gt;&gt; g = f(:,:,2);</div><div class="line">&gt;&gt; b = f(:,:,3);</div><div class="line">&gt;&gt; [VG, A, PPG] = colorgrad(f);</div></pre></td></tr></table></figure>
 <p><strong>图片：</strong></p>
 <p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad.jpg" alt=""></p>
 <p>​</p>
@@ -655,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MATLAB中彩色图像的表示方法"><span class="nav-number">1.</span> <span class="nav-text">MATLAB中彩色图像的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换至其他彩色空间"><span class="nav-number">2.</span> <span class="nav-text">转换至其他彩色空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色图像的处理基础"><span class="nav-number">3.</span> <span class="nav-text">彩色图像的处理基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色变换"><span class="nav-number">4.</span> <span class="nav-text">彩色变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色图像的空间滤波"><span class="nav-number">5.</span> <span class="nav-text">彩色图像的空间滤波</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像平滑和图像锐化"><span class="nav-number">5.1.</span> <span class="nav-text">图像平滑和图像锐化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MATLAB中彩色图像的表示方法"><span class="nav-number">1.</span> <span class="nav-text">MATLAB中彩色图像的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换至其他彩色空间"><span class="nav-number">2.</span> <span class="nav-text">转换至其他彩色空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色图像的处理基础"><span class="nav-number">3.</span> <span class="nav-text">彩色图像的处理基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色变换"><span class="nav-number">4.</span> <span class="nav-text">彩色变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色图像的空间滤波"><span class="nav-number">5.</span> <span class="nav-text">彩色图像的空间滤波</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像平滑和图像锐化"><span class="nav-number">5.1.</span> <span class="nav-text">图像平滑和图像锐化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在RGB向量空间直接处理"><span class="nav-number">6.</span> <span class="nav-text">在RGB向量空间直接处理</span></a></li></ol></div>
             
 
           </div>
