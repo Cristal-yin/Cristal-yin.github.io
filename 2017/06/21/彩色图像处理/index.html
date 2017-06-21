@@ -1,0 +1,841 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="MATLAB中彩色图像的表示方法 RGB 图像  数据类型为double 型 rgb_image = cat(3, fR, fG, fB)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="彩色图像处理">
+<meta property="og:url" content="http://yoursite.com/2017/06/21/彩色图像处理/index.html">
+<meta property="og:site_name" content="Cristal&#39;s blog">
+<meta property="og:description" content="MATLAB中彩色图像的表示方法 RGB 图像  数据类型为double 型 rgb_image = cat(3, fR, fG, fB)">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/rgbcube.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/iris.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/YIQ.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ycb.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hsv.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/CMY.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hsi.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice_breast.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/21/彩色图像处理/images/ice_breast2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flash.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flog.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/baby.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorseg.jpg">
+<meta property="og:updated_time" content="2017-06-21T03:38:29.797Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="彩色图像处理">
+<meta name="twitter:description" content="MATLAB中彩色图像的表示方法 RGB 图像  数据类型为double 型 rgb_image = cat(3, fR, fG, fB)">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/rgbcube.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/21/彩色图像处理/"/>
+
+
+
+
+
+  <title>彩色图像处理 | Cristal's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cristal's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/21/彩色图像处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cristal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cristal's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">彩色图像处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-21T11:37:38+08:00">
+                2017-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="MATLAB中彩色图像的表示方法"><a href="#MATLAB中彩色图像的表示方法" class="headerlink" title="MATLAB中彩色图像的表示方法"></a>MATLAB中彩色图像的表示方法</h3><ul>
+<li><p><strong>RGB 图像 </strong></p>
+<p>数据类型为double 型</p>
+<p><code>rgb_image = cat(3, fR, fG, fB)</code></p>
+<a id="more"></a>
+<p>其中fR,fG和fB分别代表三种RGB分量图像</p>
+<p>RGB彩色空间常常用一个RGB彩色立方体加以图解展示。</p>
+<p>​</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/rgbcube.jpg" alt=""></p>
+<p>​        <code>&gt;&gt; rgbcube(5, 5, 10)</code></p>
+</li>
+<li><p><strong>索引图像</strong></p>
+<p>索引图像有两个分量，即整数的数据矩阵X和</p>
+<p><strong>imapprox函数</strong></p>
+<p><code>[Y, newmap] = imapprox(X, map, n)</code></p>
+<p>指定一幅彩色图</p>
+<p>​    <code>&gt;&gt; map(k, :) = [r(k) g(k) b(k)]</code></p>
+<p>更换背景颜色</p>
+<p>​    <code>&gt;&gt; whitebg = (&#39;g&#39;)</code></p>
+<p>​    (三种表达)</p>
+</li>
+<li><p><strong>IPT函数 </strong></p>
+<p><strong>dither函数</strong></p>
+<p>​    <code>bw = dither(gray_image)</code></p>
+<p>抖动后的结果为二值图像</p>
+<p><strong>grayslice函数</strong></p>
+<p>​    <code>X = grayslice(gray_image, n)</code></p>
+<p>该函数通过赋给 gray_image 一个阈值来生成一幅索引图像</p>
+<p><strong>gray2ind函数</strong></p>
+<p>​    <code>[X, map] = gray2ind(gray_image, n)</code></p>
+<p>该函数执行必要的缩放</p>
+<p><strong>ind2gray函数</strong></p>
+<p>​    <code>gray_image = ind2gray(X, map)</code></p>
+<p>该函数把一幅由X和map构成的索引图像转换成一幅灰度图像。</p>
+<p><strong>rgb2ind函数</strong></p>
+<p>​    <code>[X, map] = rgb2ind(rgb_image, n, dither_options)</code></p>
+<p>其中，n决定map的长度，dither_option可以有一个或两个值：’dither’执行抖动，’nodither’将原图像上的每一种颜色映射到新图像上与其最接近的颜色，不执行抖动。</p>
+<p><strong>rgb2gray函数</strong></p>
+<p>​    <code>gray_image = ind2rgb(X, map)</code></p>
+<p>该函数将一幅RGB图像转换成一幅灰度图像.</p>
+<p><strong>例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/iris.jpg&apos;);</div><div class="line">[x1, map1] = rgb2ind(f, 8, &apos;nodither&apos;);</div><div class="line">[x2, map2] = rgb2ind(f, 8, &apos;dither&apos;);</div><div class="line">b = ind2rgb(x1, map1);</div><div class="line">c = ind2rgb(x2, map2);</div><div class="line">g = rgb2gray(f);</div><div class="line">g1 = dither(g);</div><div class="line">subplot(1, 5, 1);</div><div class="line">imshow(f);</div><div class="line">subplot(1, 5, 2);</div><div class="line">imshow(b);</div><div class="line">subplot(1, 5, 3);</div><div class="line">imshow(c);</div><div class="line">subplot(1, 5, 4);</div><div class="line">imshow(g);</div><div class="line">subplot(1, 5, 5);</div><div class="line">imshow(g1);</div></pre></td></tr></table></figure>
+<p><strong>图片:</strong></p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/iris.jpg" alt=""></p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="转换至其他彩色空间"><a href="#转换至其他彩色空间" class="headerlink" title="转换至其他彩色空间"></a>转换至其他彩色空间</h3><ul>
+<li><p><strong>NTSC彩色空间</strong></p>
+<p>主要优势:灰度信息和彩色信息是分离的</p>
+<p>在此制式中，图像数据是由三部分组成</p>
+<ul>
+<li>亮度(Y)</li>
+<li>色度(I)</li>
+<li>饱和度(Q)</li>
+</ul>
+</li>
+<li><p><strong>函数rgb2ntsc、ntsc2rgb</strong></p>
+<p>rgb2ntsc 输出的图像是double类 , 输入的图像可以是 uint8、uint16或double类</p>
+<p>ntsc2rgb 输入、输出的图像都是double 类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;Triangle.tif&apos;);</div><div class="line">&gt;&gt; yiq = rgb2ntsc(f);</div><div class="line">&gt;&gt; rgb = ntsc2rgb(yiq);</div><div class="line">&gt;&gt; subplot(1, 5, 1);</div><div class="line">&gt;&gt; imshow(rgb);</div><div class="line">&gt;&gt; title(&apos;原图&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 2);</div><div class="line">&gt;&gt; imshow(yiq);</div><div class="line">&gt;&gt; title(&apos;YIQ&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 3);</div><div class="line">&gt;&gt; figure, imshow(yiq(:, :, 1));</div><div class="line">&gt;&gt; imshow(yiq(:, :, 1));</div><div class="line">&gt;&gt; title(&apos;亮度&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 4);</div><div class="line">&gt;&gt; imshow(yiq(:, :, 2));</div><div class="line">&gt;&gt; title(&apos;色度&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 5);</div><div class="line">&gt;&gt; imshow(yiq(:, :, 3));</div><div class="line">&gt;&gt; title(&apos;饱和度&apos;);</div></pre></td></tr></table></figure>
+<p>​</p>
+<p>实例图像:</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/YIQ.jpg" alt=""></p>
+<p>​</p>
+</li>
+<li><p><strong>YCbCr 彩色空间</strong></p>
+<p><strong>函数ycbCr2rgb、rgb2ycbcr</strong></p>
+<p>​    两个函数的输入图像都可以是uint8、uint16或者double类，输出图像和输入图像的类相同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;Triangle.tif&apos;);</div><div class="line">&gt;&gt; ycb = rgb2ycbcr(f);</div><div class="line">&gt;&gt; rgb = ycbCr2rgb(ycb);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ycb.jpg" alt=""></p>
+</li>
+<li><p><strong>HSV彩色空间 （色调、饱和度、数值）</strong></p>
+<p><strong>函数rgb2hsv、hsv2rgb</strong></p>
+<p>​    rgb2hsv 输入图像可以是 uint8、 uint16或double类，输出图像是double类；hsv2rgb 输入图像必须是 double 类 ，输出图像也是。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;Triangle.tif&apos;);</div><div class="line">&gt;&gt; ycb = rgb2ycbcr(f);</div><div class="line">&gt;&gt; rgb = ycbCr2rgb(ycb);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hsv.jpg" alt=""></p>
+</li>
+<li><p><strong>CMY 和 CMYK 彩色空间</strong></p>
+<p><strong>函数imcomplement</strong></p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/CMY.jpg" alt=""> </p>
+<ul>
+<li><p><strong>HSI 彩色空间（色度、饱和度、亮度）</strong></p>
+<p><strong>rgb2hsi.m</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">function hsi = rgb2hsi(rgb)</div><div class="line">rgb = im2double (rgb);</div><div class="line">r = rgb(:, :, 1);</div><div class="line">g = rgb(:, :, 2);</div><div class="line">b = rgb(:, :, 3);</div><div class="line">num = 0.5 * ((r - g) + (r - b));</div><div class="line">den = sqrt( (r - g).^2 + (r - b).* (g - b));</div><div class="line">theta = acos(num./(den +eps));</div><div class="line"></div><div class="line">H = theta;</div><div class="line">H(b &gt; g) = 2*pi - H(b &gt; g);</div><div class="line">H = H/(2*pi);</div><div class="line"></div><div class="line">num = min(min(r, g), b);</div><div class="line">den = r + g + b;</div><div class="line">den(den == 0) = eps;</div><div class="line">S = 1 - 3.* num ./ den;</div><div class="line">H (S == 0) = 0;</div><div class="line">I = (r + g + b)/3;</div><div class="line">hsi = cat(3, H, S, I);</div><div class="line">subplot(3, 3, 1);</div><div class="line">imshow(rgb),title(&apos;rgb&apos;);</div><div class="line">subplot(3, 3, 2);</div><div class="line">imshow(hsi),title(&apos;hsi&apos;);</div><div class="line">subplot(3, 3, 4);</div><div class="line">imshow(r),title(&apos;r&apos;);</div><div class="line">subplot(3, 3, 5);</div><div class="line">imshow(g),title(&apos;g&apos;);</div><div class="line">subplot(3, 3, 6);</div><div class="line">imshow(b),title(&apos;b&apos;);</div><div class="line">subplot(3, 3, 7);</div><div class="line">imshow(H),title(&apos;h&apos;);</div><div class="line">subplot(3, 3, 8);</div><div class="line">imshow(S),title(&apos;s&apos;);</div><div class="line">subplot(3, 3, 9);</div><div class="line">imshow(I),title(&apos;i&apos;);</div></pre></td></tr></table></figure>
+<p>​</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hsi.jpg" alt=""></p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="彩色图像的处理基础"><a href="#彩色图像的处理基础" class="headerlink" title="彩色图像的处理基础"></a>彩色图像的处理基础</h3><ul>
+<li>颜色变换（彩色映射）</li>
+<li>单独彩色平面的空间处理</li>
+<li>颜色向量处理</li>
+</ul>
+<h3 id="彩色变换"><a href="#彩色变换" class="headerlink" title="彩色变换"></a>彩色变换</h3><ul>
+<li><p><strong>ice函数</strong></p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;breast.tif&apos;);</div><div class="line">&gt;&gt; g = ice(&apos;image&apos;, f);</div></pre></td></tr></table></figure>
+<p>​</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice_breast.jpg" alt=""></p>
+<p>​</p>
+</li>
+</ul>
+<p><img src=".\images\ice_breast2.jpg" alt="">  </p>
+<ul>
+<li><p><strong>伪彩色映射</strong></p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flash.jpg" alt=""></p>
+</li>
+<li><p><strong>单色和彩色对比度增强</strong></p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flog.jpg" alt=""></p>
+<ul>
+<li><p>彩色平衡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f2 = ice(&apos;image&apos;, f1, &apos;space&apos;, &apos;CMY&apos;);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/baby.jpg" alt=""></p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="彩色图像的空间滤波"><a href="#彩色图像的空间滤波" class="headerlink" title="彩色图像的空间滤波"></a>彩色图像的空间滤波</h3><h4 id="图像平滑和图像锐化"><a href="#图像平滑和图像锐化" class="headerlink" title="图像平滑和图像锐化"></a>图像平滑和图像锐化</h4><ul>
+<li><p><strong>彩色图像平滑</strong></p>
+<ul>
+<li><p>单色图像的平滑（空间平均）可以通过空间掩模中的相应系数（全是1）去</p>
+<p>乘所有像素的值，并用掩模中元素的总数去除来实现。</p>
+</li>
+<li><p>用邻域平均的平滑可以在独立分量的基础上进行。</p>
+</li>
+<li><p><strong>使用线性空间滤波器平滑RGB彩色图像fc</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fR = fc(:, :, 1), fG = fc(:, :, 2), fB = fc(:, :, 3);</div><div class="line">fR_filtered = imfilter(fR, w);</div><div class="line">fc_filtered = imfilter(fc, w);</div></pre></td></tr></table></figure>
+<p>  此方法将RGB图像三幅分量图像提取出来，分别进行分量图像滤波，最后重建滤波。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">三步合一：</div><div class="line">fc_filtered = imfilter(fc, w);</div></pre></td></tr></table></figure>
+<p><strong>RGB图像及其分量图像 </strong></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">f = imread(&apos;iris.tif&apos;);</div><div class="line"></div><div class="line">fR = f(:, :, 1);</div><div class="line"></div><div class="line">fG = f(:, :, 2);</div><div class="line"></div><div class="line">fB = f(:, :, 3);</div><div class="line">​</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    **图片:**</div><div class="line"></div><div class="line">  ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/RGB_conponment.jpg)</div><div class="line"></div><div class="line">    **HSI分量图像**</div><div class="line"></div><div class="line">   ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg)  **平滑后图像**</div><div class="line"></div><div class="line">    ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg)</div><div class="line"></div><div class="line">- 彩色图像锐化</div><div class="line"></div><div class="line">  **拉普拉斯算子**</div></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<p>w = fspecial(‘average’,5);<br>fa = imfilter(f, w, ‘replicate’);<br>lapmask = [1 1 1; 1 -8 1; 1 1 1];<br>fen = imsubtract(fa, imfilter(fa, lapmask, ‘replicate’));</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  **图片:**</div><div class="line"></div><div class="line">  ![](https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/lapmask.jpg)</div><div class="line"></div><div class="line">### 在RGB向量空间直接处理</div><div class="line"></div><div class="line"> **彩色边缘检测和区域分割**</div><div class="line"></div><div class="line">- **使用梯度的彩色边缘检测**</div><div class="line"></div><div class="line">  **函数colorgrad实现RGB图像的彩色梯度**</div><div class="line"></div><div class="line">  f 是一幅RGB图像，T是范围[0, 1]内的一个可选阈值；</div><div class="line"></div><div class="line">  VG 是RGB 向量梯度,A是以弧度计的角度，用于实现RGB的彩色梯度</div><div class="line"></div><div class="line">  PPG是对单独彩色平面的二维梯度求和形成的梯度</div></pre></td></tr></table></figure>
+<p>r = f(:,:,1);<br>g = f(:,:,2);<br>b = f(:,:,3);<br>[VG, A, PPG] = colorgrad(f);<br>```</p>
+</blockquote>
+</blockquote>
+<p><strong>图片：</strong></p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad.jpg" alt=""></p>
+<p>​</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad2.jpg" alt=""></p>
+<ul>
+<li><p><strong>RGB向量空间中的图像分割</strong></p>
+<p>分割是把一幅图像分成一些区域的处理</p>
+<p><strong>使用RGB彩色向量进行分割</strong></p>
+<ul>
+<li><p><strong>函数colorseg</strong></p>
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorseg.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/亮度变换与空间滤波/" rel="next" title="亮度变换与空间滤波">
+                <i class="fa fa-chevron-left"></i> 亮度变换与空间滤波
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cristal" />
+          <p class="site-author-name" itemprop="name">Cristal</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MATLAB中彩色图像的表示方法"><span class="nav-number">1.</span> <span class="nav-text">MATLAB中彩色图像的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换至其他彩色空间"><span class="nav-number">2.</span> <span class="nav-text">转换至其他彩色空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色图像的处理基础"><span class="nav-number">3.</span> <span class="nav-text">彩色图像的处理基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色变换"><span class="nav-number">4.</span> <span class="nav-text">彩色变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩色图像的空间滤波"><span class="nav-number">5.</span> <span class="nav-text">彩色图像的空间滤波</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像平滑和图像锐化"><span class="nav-number">5.1.</span> <span class="nav-text">图像平滑和图像锐化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cristal</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
