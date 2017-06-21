@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad2.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorseg.jpg">
-<meta property="og:updated_time" content="2017-06-21T03:45:13.798Z">
+<meta property="og:updated_time" content="2017-06-21T03:48:10.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="彩色图像处理">
 <meta name="twitter:description" content="MATLAB中彩色图像的表示方法 RGB 图像  数据类型为double 型 rgb_image = cat(3, fR, fG, fB)">
@@ -481,10 +481,11 @@
 <p>  <strong>图片:</strong></p>
 <p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/RGB_conponment.jpg" alt=""></p>
 <p>  <strong>HSI分量图像</strong></p>
-<p> <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg" alt="">  <strong>平滑后图像</strong></p>
-<p>  <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg" alt=""></p>
+<p> <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg" alt="">  </p>
+<p>​</p>
+<p><strong>平滑后图像</strong>  <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg" alt=""></p>
 </li>
-<li><p>彩色图像锐化</p>
+<li><p><strong>彩色图像锐化</strong></p>
 <p><strong>拉普拉斯算子</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = fspecial(&apos;average&apos;,5);</div><div class="line">&gt;&gt; fa = imfilter(f, w, &apos;replicate&apos;);</div><div class="line">&gt;&gt; lapmask = [1 1 1; 1 -8 1; 1 1 1];</div><div class="line">&gt;&gt; fen = imsubtract(fa, imfilter(fa, lapmask, &apos;replicate&apos;));</div></pre></td></tr></table></figure>
 <p><strong>图片:</strong></p>
