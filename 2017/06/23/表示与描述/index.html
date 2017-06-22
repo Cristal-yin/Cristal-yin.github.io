@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数字图像处理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="背景知识 前言  对分割区域加以表示与描述，以便使“自然状态的”像素更适合计算机处理。 表示区域设计到两个基本选择 用外部特征（区域的边界）表示区域 用内部特征（组成区域的像素）表示区域     背景  单元数组与结构  单元数组 不同类型的元素可以放在一个数组中 单元数组的简单说明 自己写一个函数 image_stats  该函数用来输出一幅图像的平均亮度、维数、行的平均亮度和列的平均亮度，则可">
+<meta name="keywords" content="数字图像处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="表示与描述">
+<meta property="og:url" content="http://yoursite.com/2017/06/23/表示与描述/index.html">
+<meta property="og:site_name" content="Cristal&#39;s blog">
+<meta property="og:description" content="背景知识 前言  对分割区域加以表示与描述，以便使“自然状态的”像素更适合计算机处理。 表示区域设计到两个基本选择 用外部特征（区域的边界）表示区域 用内部特征（组成区域的像素）表示区域     背景  单元数组与结构  单元数组 不同类型的元素可以放在一个数组中 单元数组的简单说明 自己写一个函数 image_stats  该函数用来输出一幅图像的平均亮度、维数、行的平均亮度和列的平均亮度，则可">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Freeman.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/minperpoly.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/bwmorph2.jpg">
+<meta property="og:updated_time" content="2017-06-22T16:41:24.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="表示与描述">
+<meta name="twitter:description" content="背景知识 前言  对分割区域加以表示与描述，以便使“自然状态的”像素更适合计算机处理。 表示区域设计到两个基本选择 用外部特征（区域的边界）表示区域 用内部特征（组成区域的像素）表示区域     背景  单元数组与结构  单元数组 不同类型的元素可以放在一个数组中 单元数组的简单说明 自己写一个函数 image_stats  该函数用来输出一幅图像的平均亮度、维数、行的平均亮度和列的平均亮度，则可">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Freeman.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/23/表示与描述/"/>
+
+
+
+
+
+  <title>表示与描述 | Cristal's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cristal's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/表示与描述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cristal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cristal's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">表示与描述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T00:33:01+08:00">
+                2017-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h3><ul>
+<li><p><strong>前言</strong></p>
+<ul>
+<li>对分割区域加以表示与描述，以便使“自然状态的”像素更适合计算机处理。</li>
+<li>表示区域设计到两个基本选择<ul>
+<li>用外部特征（区域的边界）表示区域</li>
+<li>用内部特征（组成区域的像素）表示区域</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>背景</strong></p>
+<ul>
+<li><p><strong>单元数组与结构</strong></p>
+<ul>
+<li><p><strong>单元数组</strong></p>
+<p>不同类型的元素可以放在一个数组中</p>
+<p><strong>单元数组的简单说明</strong></p>
+<p>自己写一个函数 <strong>image_stats</strong></p>
+<ul>
+<li><p>该函数用来输出一幅图像的平均亮度、维数、行的平均亮度和列的平均亮度，则可以使用“标准”方法写函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function [AI, dim, AIrows, AIcols] = image_stats(f)</div><div class="line">dim = size(f);</div><div class="line">AI = mean2(f);</div><div class="line">AIrows = mean(f, 2);</div><div class="line">AIcols = mean(f, 1);</div></pre></td></tr></table></figure>
+<p>若使用单元数组，则可以改成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function G = image_stats(f)</div><div class="line">G&#123;1&#125; = size(f);</div><div class="line">G&#123;2&#125; = mean2(f);</div><div class="line">G&#123;3&#125; = mean(f, 2);</div><div class="line">G&#123;4&#125; = mean(f, 1);</div></pre></td></tr></table></figure>
+<p>其中 G(1) = {size (f)} 合法</p>
+<p>​</p>
+</li>
+<li><p>单元数组也可以是多维的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function H = image_stats2(f)</div><div class="line">H(1, 1) = &#123;size(f)&#125;;</div><div class="line">H(1, 2) = &#123;mean2(f)&#125;;</div><div class="line">H(2, 1) = &#123;mean(f, 2)&#125;;</div><div class="line">H(2, 2) = &#123;mean(f, 1)&#125;;</div></pre></td></tr></table></figure>
+<p>同理，此处也可写成 H{1, 1} =size(f)</p>
+<p>额外的维数可以按照类似的操作</p>
+</li>
+</ul>
+</li>
+<li><p><strong>结构</strong></p>
+<p><strong>结构的简单说明</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function s = image_stats(f)</div><div class="line">s.dim = size(f);</div><div class="line">s.AI = mean2(f);</div><div class="line">s.AIrows = mean(f, 2);</div><div class="line">s.AIcols = mean(f, 1);</div></pre></td></tr></table></figure>
+<p>其中s 是一个结构，s本身是一个标量，它与本例中的4个域相关。</p>
+<p><strong>参数为图片时</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function s = image_stats(f)</div><div class="line">K = size(f);</div><div class="line">for k = 1:K(3)</div><div class="line">	s(k).dim = size(f(:, :, k));</div><div class="line">	s(k).AI = mean2(f(:, :, k));</div><div class="line">	s(k).AIrows = mean(f(:, :, k), 2);</div><div class="line">	s(k).AIcols = mean(f(:, :, k), 1);</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>MATLAB 和 IPT 函数</strong></p>
+<ul>
+<li><p><strong>函数imfill</strong></p>
+<p>该函数对于二值图像和灰度图像的作用不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gB = imfill(fB, locations, conn)</div></pre></td></tr></table></figure>
+<p>在输入二值图像 fB 的背景像素上从参数locations指定的点开始，执行填充操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gB = imfill(fB, conn, &apos;holes&apos;)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g = imfill(fI, conn, &apos;holes&apos;)</div></pre></td></tr></table></figure>
+<p>将填充输入灰度图像fI 的孔洞</p>
+<p>函数find 可以和 bwlabel一起使用，返回构成某个指定对象的像素的坐标向量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[gB, num] = bwlabel(fB)</div></pre></td></tr></table></figure>
+<p>产生了多个连续区域（即num &gt; 1）</p>
+<p>则使用一下语法可以获得第二个区域的坐标:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[r, c] = find(g == 2)</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p><strong>函数sortrows</strong></p>
+<p>对数组进行排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = sortrows(S)</div></pre></td></tr></table></figure>
+<p>S 必须是矩阵或列向量</p>
+<p>​</p>
+</li>
+<li><p><strong>函数unique</strong></p>
+<p>既对数组进行排序，又去除重复行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[z, m, n] = unique(S, &apos;rows&apos;)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>函数circshift</strong></p>
+<p>对数组进行向上、向下或侧移指定位置数的移位操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = circshift(S, [ud lr])</div></pre></td></tr></table></figure>
+<p>ud 是 S 向上 或向下移位的元素数</p>
+<p>若S 是一幅图像，则circshift 就是对图像进行的卷动操作或平移操作。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>基本的M函数</strong></p>
+<ul>
+<li><p><strong>函数boundaries</strong></p>
+<p>输出的B是一个单元数组，其元素是已找到的边界的坐标</p>
+<p>计算出每个边界中的第一个点和最后一个点</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">B = boundaries(f, conn, dir)</div></pre></td></tr></table></figure>
+<p>  或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">B = boundaries(f)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">B = boundaries (f);</div><div class="line">d = cellfun(&apos;length&apos;, B);</div><div class="line">[max_d, k] =  max(d);</div><div class="line">v = B&#123;k(1)&#125;;</div></pre></td></tr></table></figure>
+<p>  ​</p>
+<ul>
+<li><p><strong>函数bound2eight</strong></p>
+<p>会从上一个函数的基础上移除一些像素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">b8 = bound2eight(b)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>函数bound2four</strong></p>
+<p>同bound2eight</p>
+</li>
+<li><p><strong>函数bound2im</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g = bound2im(b, M, N, x0, y0)</div></pre></td></tr></table></figure>
+<p>生成一幅二值图像g ，参数 x0 y0 决定图像中b 的最小x 和y 坐标位置</p>
+</li>
+<li><p><strong>函数bsubsamp</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[s, su] = bsubsamp(b, gridsep)</div></pre></td></tr></table></figure>
+<p>输出s 是一个比b有更少的点的边界，点的数目由gridsep的值确定，su 是按比例取得的边界点的集合，这样可使坐标的转换趋于一致。</p>
+</li>
+<li><p><strong>函数connectpoly</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = connectpoly(s(:,1), s(:, 2))</div></pre></td></tr></table></figure>
+<p>当对边界进行二次取样时，用此函数将图像的点重新连接起来</p>
+<p>s 是二次取样后的边界的坐标</p>
+</li>
+<li><p><strong>函数intline</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[x, y] = intline(x1, x2, y1, y2)</div></pre></td></tr></table></figure>
+<p> 当对边界进行操作时，计算连接两点的一条直线的整数坐标。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h3><ul>
+<li><p><strong>链码</strong></p>
+<p>Freeman链码</p>
+<p><strong>函数fchcode</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">c = fchcode (b, conn, dir)</div></pre></td></tr></table></figure>
+<p>该函数计算一个保存在数组b中的np*2 个已排序边界点集的Freeman链码</p>
+<p><strong>Freeman链码及其某些变体</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; h = fspecial(&apos;average&apos;, 9);</div><div class="line">&gt;&gt; g = imfilter(f, h, &apos;replicate&apos;);</div><div class="line">&gt;&gt; g = im2bw(g, 0.5);</div><div class="line">&gt;&gt; g = im2bw(g, 0.5);</div><div class="line">&gt;&gt; B = boundaries(g); </div><div class="line">&gt;&gt; d = cellfun(&apos;length&apos;, B);</div><div class="line">&gt;&gt; [max_d, k] = max(d);</div><div class="line">&gt;&gt; b = B&#123;k&#125;;</div><div class="line">&gt;&gt; [M N] = size(g);</div><div class="line">&gt;&gt; g = bound2im(b, M, N, min(b(:, 1)), min(b(:, 2)));</div><div class="line">&gt;&gt; [s, su] = bsubsamp(b, 50);</div><div class="line">&gt;&gt; g2 = bound2im(s, M, N, min(s(:, 1)), min(s(:, 2)));</div><div class="line">&gt;&gt; cn = connectpoly(s(:, 1), s(:, 2));</div><div class="line">&gt;&gt; g2 = bound2im(cn, M, N, min(cn(:, 1)), min(cn(:, 2)));</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Freeman.jpg" alt=""></p>
+</li>
+<li><p><strong>使用最小周长多边形的多边形近似</strong></p>
+<p><strong>MPP方法</strong></p>
+<ul>
+<li><p>寻找MPP方法的基础</p>
+<ul>
+<li>对应一个简单连接的细胞联合体的MPP是本身不相交的。令P表示该MPP。</li>
+<li>P的每一个凸顶点与一个黑点 相符</li>
+<li>P的每一个凹顶点与一个白点相符</li>
+<li>若一个黑点为P的一部分，且不是P的凸顶点，则其在P的边缘上</li>
+</ul>
+</li>
+<li><p>查找一个区域的 MPP 的如下步骤：</p>
+<ul>
+<li>获取细胞联合体</li>
+<li>获取细胞联合体的内部区域</li>
+<li>使用函数 boundaries 以4 连接顺时针坐标序列的形式获得步骤2 中的区域的边界</li>
+<li>使用函数 fchcode 获得该4 连接序列的Freeman 链码</li>
+<li>从链码中获得凸顶点与凹顶点</li>
+<li>使用黑点作为顶点构造一个初始多边形，在进一步的分析中删除位于该多边形之外的任何白顶点</li>
+<li>用剩余的黑白点作为顶点构造一个多边形</li>
+<li>删除所有为凹顶点的黑点</li>
+<li>重复步骤7 和8 ，直到变化停止，此时，所有角度为180 ° 的顶点均将删除，剩下的点就是MPP的顶点</li>
+</ul>
+<p><strong>MPP算法实现总用到的一些M函数</strong></p>
+<p><strong>函数qtdecomp</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Q = qtdecomp(B, threshold, [mindim maxdim])</div></pre></td></tr></table></figure>
+<p>Q 是一个包含四叉树结构的稀疏矩阵，若Q (k, m)非零，则</p>
+<p>(k, m)非零，则(k, m)为分解中的坐上块，块的大小为Q(k, m)</p>
+<p><strong>函数qtgetblk</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[vals, r, c] = qtgetblk(B, Q, mindim)</div></pre></td></tr></table></figure>
+<p>vals 是一个在B 的四叉树分解中包含 mindim * mindim 个块的值的数组，而Q 是由函数qtdecomp返回的稀疏矩阵，参数r 和c 是包含左上角的行和列坐标的向量</p>
+<p><strong>函数inpolygon</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IN = inpolygon(X, Y, xv, yv)</div></pre></td></tr></table></figure>
+<p>X 和 Y 是包含待测点的x 和y 坐标的向量，而xv 和yv是包含按顺时针和逆时针顺序安排的多边形顶点的x 和y 坐标的向量</p>
+<p><strong>函数minerpoly</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[x, y] = minperpoly(B, cellsize)</div></pre></td></tr></table></figure>
+<p>B是一个二值图像，它包含单个区域或边界，而cellsize 是细胞联合体中用于形成边界的方形单元的大小</p>
+<p><strong>使用minerpoly函数的实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">b = boundaries(B, 4, &apos;cw&apos;)</div><div class="line">b = b&#123;1&#125;;</div><div class="line">[M, N] = size(B);</div><div class="line">xmin = min(b(:, 1));</div><div class="line">ymin = min(b(:, 2));</div><div class="line">bim = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 2);</div><div class="line">b2 = connectpoly(x, y);</div><div class="line">B2 = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 3);</div><div class="line">b3 = connectpoly(x, y);</div><div class="line">B3 = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 4);</div><div class="line">b4 = connectpoly(x, y);</div><div class="line">B4 = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 8);</div><div class="line">b8 = connectpoly(x, y);</div><div class="line">B8 = bound2im(b, M, N, xmin, ymin);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/minperpoly.jpg" alt=""></p>
+<p>(a)是原图像、(b) 4 连接边界 、(c) 使用大小为2 的方形边界单元获得的MPP、(d) ~(f)分别使用大小为 3， 4和 8  的方形单元获得的MPP</p>
+</li>
+</ul>
+</li>
+<li><p><strong>标记</strong></p>
+<p>标记是边界的一维函数的表示，它可以通过多种方法生成。</p>
+<p><strong>函数signature</strong></p>
+<p>可用于查找给定边界的标记</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[st, angle, x0, y0] = signature(b, x0, y0)</div></pre></td></tr></table></figure>
+<p><strong>函数cart2pol</strong></p>
+<p>函数signature 使用函数 cart2pol 将笛卡儿 坐标转换为极坐标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[THETA, RHO] = cart2pol(X, Y)</div></pre></td></tr></table></figure>
+<p><strong>函数pol2cart</strong></p>
+<p>将极坐标转换为笛卡儿坐标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[X, Y] = pol2cart(THETA, RHO)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>边界片断</strong></p>
+<p>将一条边界分解为片断通常是很有用的。</p>
+<p>分借降低了边界的复杂度，从而简化了描述过程</p>
+<p>这里用<strong>函数regionprops</strong>处理</p>
+</li>
+<li><p><strong>骨骼</strong></p>
+<p>用于表示平面区域结构形状的一种重要方法是将其简化为一幅图形，这一简化可以通过一种细化（也称骨骼化）算法获取区域骨骼来完成。</p>
+<p><strong>函数bwmorph</strong></p>
+<p>该函数用来生成二值图像中所有区域的骨骼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s = bwmorph(B, &apos;skel&apos;, Inf)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = im2double(f);</div><div class="line">&gt;&gt; h = fspecial (&apos;gaussian&apos;,25,15);</div><div class="line">&gt;&gt; g = imfilter(f, h, &apos;replicate&apos;);</div><div class="line">&gt;&gt; g = im2bw(g, 1.5*graythresh(g));</div><div class="line">&gt;&gt; s = bwmorph(g, &apos;skel&apos;, Inf) ;</div><div class="line">&gt;&gt; s1 = bwmorph(s, &apos;spur&apos;, 8);</div><div class="line">&gt;&gt; s2 = bwmorph(s1, &apos;spur&apos;, 7);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/bwmorph2.jpg" alt=""></p>
+<p>(a) 分割后的人类染色体</p>
+<p>(b) 使用 25 *25 高斯空间掩模(sig = 15)平滑原图像的结果</p>
+<p>(c)经阈值处理后的图像 </p>
+<p>(d) 骨骼 </p>
+<p>(e) 应用8 次去除毛刺的算法后的图像 </p>
+<p>(f)再应用7次去除刺算法后的骨骼</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数字图像处理/" rel="tag"># 数字图像处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/23/图像分割/" rel="next" title="图像分割">
+                <i class="fa fa-chevron-left"></i> 图像分割
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cristal" />
+          <p class="site-author-name" itemprop="name">Cristal</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景知识"><span class="nav-number">1.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示"><span class="nav-number">2.</span> <span class="nav-text">表示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cristal</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

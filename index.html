@@ -253,6 +253,583 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/表示与描述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cristal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cristal's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/23/表示与描述/" itemprop="url">表示与描述</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T00:33:01+08:00">
+                2017-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h3><ul>
+<li><p><strong>前言</strong></p>
+<ul>
+<li>对分割区域加以表示与描述，以便使“自然状态的”像素更适合计算机处理。</li>
+<li>表示区域设计到两个基本选择<ul>
+<li>用外部特征（区域的边界）表示区域</li>
+<li>用内部特征（组成区域的像素）表示区域</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>背景</strong></p>
+<ul>
+<li><p><strong>单元数组与结构</strong></p>
+<ul>
+<li><p><strong>单元数组</strong></p>
+<p>不同类型的元素可以放在一个数组中</p>
+<p><strong>单元数组的简单说明</strong></p>
+<p>自己写一个函数 <strong>image_stats</strong></p>
+<ul>
+<li><p>该函数用来输出一幅图像的平均亮度、维数、行的平均亮度和列的平均亮度，则可以使用“标准”方法写函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function [AI, dim, AIrows, AIcols] = image_stats(f)</div><div class="line">dim = size(f);</div><div class="line">AI = mean2(f);</div><div class="line">AIrows = mean(f, 2);</div><div class="line">AIcols = mean(f, 1);</div></pre></td></tr></table></figure>
+<p>若使用单元数组，则可以改成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function G = image_stats(f)</div><div class="line">G&#123;1&#125; = size(f);</div><div class="line">G&#123;2&#125; = mean2(f);</div><div class="line">G&#123;3&#125; = mean(f, 2);</div><div class="line">G&#123;4&#125; = mean(f, 1);</div></pre></td></tr></table></figure>
+<p>其中 G(1) = {size (f)} 合法</p>
+<p>​</p>
+</li>
+<li><p>单元数组也可以是多维的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function H = image_stats2(f)</div><div class="line">H(1, 1) = &#123;size(f)&#125;;</div><div class="line">H(1, 2) = &#123;mean2(f)&#125;;</div><div class="line">H(2, 1) = &#123;mean(f, 2)&#125;;</div><div class="line">H(2, 2) = &#123;mean(f, 1)&#125;;</div></pre></td></tr></table></figure>
+<p>同理，此处也可写成 H{1, 1} =size(f)</p>
+<p>额外的维数可以按照类似的操作</p>
+</li>
+</ul>
+</li>
+<li><p><strong>结构</strong></p>
+<p><strong>结构的简单说明</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function s = image_stats(f)</div><div class="line">s.dim = size(f);</div><div class="line">s.AI = mean2(f);</div><div class="line">s.AIrows = mean(f, 2);</div><div class="line">s.AIcols = mean(f, 1);</div></pre></td></tr></table></figure>
+<p>其中s 是一个结构，s本身是一个标量，它与本例中的4个域相关。</p>
+<p><strong>参数为图片时</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function s = image_stats(f)</div><div class="line">K = size(f);</div><div class="line">for k = 1:K(3)</div><div class="line">	s(k).dim = size(f(:, :, k));</div><div class="line">	s(k).AI = mean2(f(:, :, k));</div><div class="line">	s(k).AIrows = mean(f(:, :, k), 2);</div><div class="line">	s(k).AIcols = mean(f(:, :, k), 1);</div><div class="line">end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>MATLAB 和 IPT 函数</strong></p>
+<ul>
+<li><p><strong>函数imfill</strong></p>
+<p>该函数对于二值图像和灰度图像的作用不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gB = imfill(fB, locations, conn)</div></pre></td></tr></table></figure>
+<p>在输入二值图像 fB 的背景像素上从参数locations指定的点开始，执行填充操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gB = imfill(fB, conn, &apos;holes&apos;)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g = imfill(fI, conn, &apos;holes&apos;)</div></pre></td></tr></table></figure>
+<p>将填充输入灰度图像fI 的孔洞</p>
+<p>函数find 可以和 bwlabel一起使用，返回构成某个指定对象的像素的坐标向量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[gB, num] = bwlabel(fB)</div></pre></td></tr></table></figure>
+<p>产生了多个连续区域（即num &gt; 1）</p>
+<p>则使用一下语法可以获得第二个区域的坐标:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[r, c] = find(g == 2)</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p><strong>函数sortrows</strong></p>
+<p>对数组进行排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = sortrows(S)</div></pre></td></tr></table></figure>
+<p>S 必须是矩阵或列向量</p>
+<p>​</p>
+</li>
+<li><p><strong>函数unique</strong></p>
+<p>既对数组进行排序，又去除重复行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[z, m, n] = unique(S, &apos;rows&apos;)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>函数circshift</strong></p>
+<p>对数组进行向上、向下或侧移指定位置数的移位操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = circshift(S, [ud lr])</div></pre></td></tr></table></figure>
+<p>ud 是 S 向上 或向下移位的元素数</p>
+<p>若S 是一幅图像，则circshift 就是对图像进行的卷动操作或平移操作。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>基本的M函数</strong></p>
+<ul>
+<li><p><strong>函数boundaries</strong></p>
+<p>输出的B是一个单元数组，其元素是已找到的边界的坐标</p>
+<p>计算出每个边界中的第一个点和最后一个点</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">B = boundaries(f, conn, dir)</div></pre></td></tr></table></figure>
+<p>  或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">B = boundaries(f)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">B = boundaries (f);</div><div class="line">d = cellfun(&apos;length&apos;, B);</div><div class="line">[max_d, k] =  max(d);</div><div class="line">v = B&#123;k(1)&#125;;</div></pre></td></tr></table></figure>
+<p>  ​</p>
+<ul>
+<li><p><strong>函数bound2eight</strong></p>
+<p>会从上一个函数的基础上移除一些像素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">b8 = bound2eight(b)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>函数bound2four</strong></p>
+<p>同bound2eight</p>
+</li>
+<li><p><strong>函数bound2im</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g = bound2im(b, M, N, x0, y0)</div></pre></td></tr></table></figure>
+<p>生成一幅二值图像g ，参数 x0 y0 决定图像中b 的最小x 和y 坐标位置</p>
+</li>
+<li><p><strong>函数bsubsamp</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[s, su] = bsubsamp(b, gridsep)</div></pre></td></tr></table></figure>
+<p>输出s 是一个比b有更少的点的边界，点的数目由gridsep的值确定，su 是按比例取得的边界点的集合，这样可使坐标的转换趋于一致。</p>
+</li>
+<li><p><strong>函数connectpoly</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = connectpoly(s(:,1), s(:, 2))</div></pre></td></tr></table></figure>
+<p>当对边界进行二次取样时，用此函数将图像的点重新连接起来</p>
+<p>s 是二次取样后的边界的坐标</p>
+</li>
+<li><p><strong>函数intline</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[x, y] = intline(x1, x2, y1, y2)</div></pre></td></tr></table></figure>
+<p> 当对边界进行操作时，计算连接两点的一条直线的整数坐标。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h3><ul>
+<li><p><strong>链码</strong></p>
+<p>Freeman链码</p>
+<p><strong>函数fchcode</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">c = fchcode (b, conn, dir)</div></pre></td></tr></table></figure>
+<p>该函数计算一个保存在数组b中的np*2 个已排序边界点集的Freeman链码</p>
+<p><strong>Freeman链码及其某些变体</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; h = fspecial(&apos;average&apos;, 9);</div><div class="line">&gt;&gt; g = imfilter(f, h, &apos;replicate&apos;);</div><div class="line">&gt;&gt; g = im2bw(g, 0.5);</div><div class="line">&gt;&gt; g = im2bw(g, 0.5);</div><div class="line">&gt;&gt; B = boundaries(g); </div><div class="line">&gt;&gt; d = cellfun(&apos;length&apos;, B);</div><div class="line">&gt;&gt; [max_d, k] = max(d);</div><div class="line">&gt;&gt; b = B&#123;k&#125;;</div><div class="line">&gt;&gt; [M N] = size(g);</div><div class="line">&gt;&gt; g = bound2im(b, M, N, min(b(:, 1)), min(b(:, 2)));</div><div class="line">&gt;&gt; [s, su] = bsubsamp(b, 50);</div><div class="line">&gt;&gt; g2 = bound2im(s, M, N, min(s(:, 1)), min(s(:, 2)));</div><div class="line">&gt;&gt; cn = connectpoly(s(:, 1), s(:, 2));</div><div class="line">&gt;&gt; g2 = bound2im(cn, M, N, min(cn(:, 1)), min(cn(:, 2)));</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Freeman.jpg" alt=""></p>
+</li>
+<li><p><strong>使用最小周长多边形的多边形近似</strong></p>
+<p><strong>MPP方法</strong></p>
+<ul>
+<li><p>寻找MPP方法的基础</p>
+<ul>
+<li>对应一个简单连接的细胞联合体的MPP是本身不相交的。令P表示该MPP。</li>
+<li>P的每一个凸顶点与一个黑点 相符</li>
+<li>P的每一个凹顶点与一个白点相符</li>
+<li>若一个黑点为P的一部分，且不是P的凸顶点，则其在P的边缘上</li>
+</ul>
+</li>
+<li><p>查找一个区域的 MPP 的如下步骤：</p>
+<ul>
+<li>获取细胞联合体</li>
+<li>获取细胞联合体的内部区域</li>
+<li>使用函数 boundaries 以4 连接顺时针坐标序列的形式获得步骤2 中的区域的边界</li>
+<li>使用函数 fchcode 获得该4 连接序列的Freeman 链码</li>
+<li>从链码中获得凸顶点与凹顶点</li>
+<li>使用黑点作为顶点构造一个初始多边形，在进一步的分析中删除位于该多边形之外的任何白顶点</li>
+<li>用剩余的黑白点作为顶点构造一个多边形</li>
+<li>删除所有为凹顶点的黑点</li>
+<li>重复步骤7 和8 ，直到变化停止，此时，所有角度为180 ° 的顶点均将删除，剩下的点就是MPP的顶点</li>
+</ul>
+<p><strong>MPP算法实现总用到的一些M函数</strong></p>
+<p><strong>函数qtdecomp</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Q = qtdecomp(B, threshold, [mindim maxdim])</div></pre></td></tr></table></figure>
+<p>Q 是一个包含四叉树结构的稀疏矩阵，若Q (k, m)非零，则</p>
+<p>(k, m)非零，则(k, m)为分解中的坐上块，块的大小为Q(k, m)</p>
+<p><strong>函数qtgetblk</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[vals, r, c] = qtgetblk(B, Q, mindim)</div></pre></td></tr></table></figure>
+<p>vals 是一个在B 的四叉树分解中包含 mindim * mindim 个块的值的数组，而Q 是由函数qtdecomp返回的稀疏矩阵，参数r 和c 是包含左上角的行和列坐标的向量</p>
+<p><strong>函数inpolygon</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IN = inpolygon(X, Y, xv, yv)</div></pre></td></tr></table></figure>
+<p>X 和 Y 是包含待测点的x 和y 坐标的向量，而xv 和yv是包含按顺时针和逆时针顺序安排的多边形顶点的x 和y 坐标的向量</p>
+<p><strong>函数minerpoly</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[x, y] = minperpoly(B, cellsize)</div></pre></td></tr></table></figure>
+<p>B是一个二值图像，它包含单个区域或边界，而cellsize 是细胞联合体中用于形成边界的方形单元的大小</p>
+<p><strong>使用minerpoly函数的实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">b = boundaries(B, 4, &apos;cw&apos;)</div><div class="line">b = b&#123;1&#125;;</div><div class="line">[M, N] = size(B);</div><div class="line">xmin = min(b(:, 1));</div><div class="line">ymin = min(b(:, 2));</div><div class="line">bim = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 2);</div><div class="line">b2 = connectpoly(x, y);</div><div class="line">B2 = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 3);</div><div class="line">b3 = connectpoly(x, y);</div><div class="line">B3 = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 4);</div><div class="line">b4 = connectpoly(x, y);</div><div class="line">B4 = bound2im(b, M, N, xmin, ymin);</div><div class="line">[x, y] =  minperpoly(B, 8);</div><div class="line">b8 = connectpoly(x, y);</div><div class="line">B8 = bound2im(b, M, N, xmin, ymin);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/minperpoly.jpg" alt=""></p>
+<p>(a)是原图像、(b) 4 连接边界 、(c) 使用大小为2 的方形边界单元获得的MPP、(d) ~(f)分别使用大小为 3， 4和 8  的方形单元获得的MPP</p>
+</li>
+</ul>
+</li>
+<li><p><strong>标记</strong></p>
+<p>标记是边界的一维函数的表示，它可以通过多种方法生成。</p>
+<p><strong>函数signature</strong></p>
+<p>可用于查找给定边界的标记</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[st, angle, x0, y0] = signature(b, x0, y0)</div></pre></td></tr></table></figure>
+<p><strong>函数cart2pol</strong></p>
+<p>函数signature 使用函数 cart2pol 将笛卡儿 坐标转换为极坐标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[THETA, RHO] = cart2pol(X, Y)</div></pre></td></tr></table></figure>
+<p><strong>函数pol2cart</strong></p>
+<p>将极坐标转换为笛卡儿坐标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[X, Y] = pol2cart(THETA, RHO)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>边界片断</strong></p>
+<p>将一条边界分解为片断通常是很有用的。</p>
+<p>分借降低了边界的复杂度，从而简化了描述过程</p>
+<p>这里用<strong>函数regionprops</strong>处理</p>
+</li>
+<li><p><strong>骨骼</strong></p>
+<p>用于表示平面区域结构形状的一种重要方法是将其简化为一幅图形，这一简化可以通过一种细化（也称骨骼化）算法获取区域骨骼来完成。</p>
+<p><strong>函数bwmorph</strong></p>
+<p>该函数用来生成二值图像中所有区域的骨骼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s = bwmorph(B, &apos;skel&apos;, Inf)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = im2double(f);</div><div class="line">&gt;&gt; h = fspecial (&apos;gaussian&apos;,25,15);</div><div class="line">&gt;&gt; g = imfilter(f, h, &apos;replicate&apos;);</div><div class="line">&gt;&gt; g = im2bw(g, 1.5*graythresh(g));</div><div class="line">&gt;&gt; s = bwmorph(g, &apos;skel&apos;, Inf) ;</div><div class="line">&gt;&gt; s1 = bwmorph(s, &apos;spur&apos;, 8);</div><div class="line">&gt;&gt; s2 = bwmorph(s1, &apos;spur&apos;, 7);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/bwmorph2.jpg" alt=""></p>
+<p>(a) 分割后的人类染色体</p>
+<p>(b) 使用 25 *25 高斯空间掩模(sig = 15)平滑原图像的结果</p>
+<p>(c)经阈值处理后的图像 </p>
+<p>(d) 骨骼 </p>
+<p>(e) 应用8 次去除毛刺的算法后的图像 </p>
+<p>(f)再应用7次去除刺算法后的骨骼</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/图像分割/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cristal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cristal's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/23/图像分割/" itemprop="url">图像分割</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T00:31:08+08:00">
+                2017-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="点、线和边缘检测"><a href="#点、线和边缘检测" class="headerlink" title="点、线和边缘检测"></a>点、线和边缘检测</h3><ul>
+<li><p><strong>点检测</strong></p>
+<p>点检测在MATLAB中可以用函数imfilter来实现</p>
+<p><strong>点检测方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; g = abs(imfilter(double(f), w)) &gt;= T</div></pre></td></tr></table></figure>
+<p>其中f 是输入图像,w是一个合适的点检测掩模， g是结果图像</p>
+<ul>
+<li><p>计算已滤波的图像，即abs(imfilter(double(f),w));</p>
+</li>
+<li><p>使用来自己滤波的图像的数据找到T的值</p>
+</li>
+<li><p>将已滤波的图像与T做比较</p>
+<p><strong>点检测举例</strong></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = [-1 -1 -1;-1 8 -1; -1 -1 -1];</div><div class="line">&gt;&gt; g = abs(imfilter(double(f), w));</div><div class="line">&gt;&gt; T = max(g(:));</div><div class="line">&gt;&gt; g = g&gt;=T;</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/abs.jpg" alt=""></p>
+<p><strong>方法二</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;g = imsubstract(ordfilt2(f, m*n, ones(m, n)),ordfilt2(f, 1, ones(m, n)));</div><div class="line">&gt;&gt; g = g &gt;= T;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>线检测</strong></p>
+<p>线检测中对指定方向的线更感兴趣，这种情况下可以与该方向相关的掩模并对其输出做出阈值处理。</p>
+<p><strong>检测指定方向的线</strong></p>
+<p>​</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = [2 -1 -1 ; -1 2 -1; -1 -1 2];</div><div class="line">&gt;&gt; g = imfilter(double(f), w);</div><div class="line">&gt;&gt; gtop = g(1:120, 1:120);</div><div class="line">&gt;&gt; gtop = pixeldup(gtop, 4);</div><div class="line">&gt;&gt; subplot(1,2,1);</div><div class="line">&gt;&gt; gbot = g(end-119:end, end-119:end);</div><div class="line">&gt;&gt; gbot = pixeldup(gbot, 4);</div><div class="line">&gt;&gt; g = abs(g);</div><div class="line">&gt;&gt; T = max(g(:));</div><div class="line">&gt;&gt; g = g &gt;= T;</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/line.jpg" alt=""></p>
+<p>b 图是对a 进行 $-45^.$ 检测器处理后的节刚过，下面两幅分别是它的左上角和右下角的放大图，e 是b 的绝对值 f 是满足条件 g&gt;= T的所有点</p>
+<p><strong>函数pixeldup</strong></p>
+<p>​    pixeldup(m,n)————%pixeldup函数是将图像扩大m<em>n倍，通过复制每个像素点m</em>n次。</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/检测器.jpg" alt=""></p>
+<p>​</p>
+<p><strong>函数edge</strong></p>
+<p>边缘检测的基本意图是使用如下两个基本准则之一在图像中找到亮度快速变化的地方：</p>
+<ul>
+<li>找到亮度的一阶导数在幅度上比指定的阈值大的地方</li>
+<li>找到亮度的二阶导数有零交叉的地方</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;method&apos;, parameters)</div></pre></td></tr></table></figure>
+<p>其中f 是输入图像 , method 是下表中的方法 </p>
+<p>输出中 g是一个逻辑数组 ，其值如下决定：</p>
+<p>​    在f 中检测到边缘的位置为1， 在其他位置为 0</p>
+<p>t 参数是可选的，它给出edge使用的阈值，以确定那个梯度值足够大到可以称为边缘点。</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/edge.jpg" alt=""></p>
+<p><strong>Sobel边缘检测器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;soble&apos;, T, dir)</div></pre></td></tr></table></figure>
+<ul>
+<li>其中f 是输入图像，T 是一个指定的阈值 ，dir指定检测边缘的首选方向：‘horizontal’、’vertical’、 或’both’</li>
+<li>g 是在被检测到边缘的位置处为 1而在其他位置为0 的逻辑类图像</li>
+<li>输出参数t  是可选的，它是函数edge所用的阈值 </li>
+<li>若指定了T的值，则t = T ; 否则，若T 未被赋值 ，则函数edge会令t 等于它自动确定的一个阈值，然后用于边缘检测。</li>
+<li>在输出参量中要包括t的主要原因之一是为了得到一个阈值的初始值</li>
+<li>若使用语法  g = edge(f) 或 [g, t] = edge(f) ，则函数edge会默认使用Sobel 检测器</li>
+</ul>
+<p><strong>Prewitt边缘检测器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;prewitt&apos;,T, dir)</div></pre></td></tr></table></figure>
+<p>Prewitt 检测器比Sobel 检测器在计算上简单一点，但是比较容易产生一些噪声</p>
+<p><strong>Roberts边缘检测器</strong></p>
+<p>该检测器是最古老的边缘检测器之一，它也是最简单的一种边缘检测器；经常用于硬件的实现，因为既简单又快速。</p>
+<p><strong>Laplacian of a Gaussian 检测器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;log&apos;, T, sigma)</div></pre></td></tr></table></figure>
+<p>其中sigma是标准偏差，默认值为2</p>
+<p><strong>零交叉检测器</strong></p>
+<p>该检测器基于与LOG方法相同的概念，但卷积是使用指定的滤波函数H执行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;zerocross&apos;,T, H)</div></pre></td></tr></table></figure>
+<p><strong>Canny边缘检测器</strong></p>
+<p>该检测器是使用函数edge的最有效边缘检测器</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Canny.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;canny&apos;, T, sigma)</div></pre></td></tr></table></figure>
+<ul>
+<li>其中T 是一个向量， T= [T1,T2]</li>
+<li>sigma 是平滑滤波器的标准偏差</li>
+<li>t 是一个二元向量，该向量包含该算法用到的两个阈值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; [gv, t] = edge(f,&apos;sobel&apos;,&apos;vertical&apos;);</div><div class="line">&gt;&gt; gv = edge(f, &apos;sobel&apos;, 0.15, &apos;vertical&apos;);</div><div class="line">&gt;&gt; gboth = edge(f, &apos;sobel&apos;, 0.15);</div><div class="line">&gt;&gt; w45 = [-2 -1 0;-1 0 1; 0 1 2]</div><div class="line">&gt;&gt; g45 = imfilter(double(f), w45, &apos;replicate&apos;);</div><div class="line">&gt;&gt; T = 0.3 * max(abs(g45(:)));</div><div class="line">&gt;&gt; g45 = g45 &gt;= T;</div><div class="line">&gt;&gt; f45= [0 1 2;-1 0 1;-2 -1 0]</div><div class="line">&gt;&gt; h45= imfilter(double(f), f45,&apos;replicate&apos;);</div><div class="line">&gt;&gt; T = 0.3 * max(abs(h45(:)));</div><div class="line">&gt;&gt; h45 = h45 &gt;= T;</div></pre></td></tr></table></figure>
+<p>​</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Sobel.jpg" alt=""></p>
+<p>​</p>
+<p>a . 原图像</p>
+<p>b .使用带有自动确定的阈值的一个垂直Sobel 掩模后， 函数edge导致的结果</p>
+<p>c .使用指定阈值后的结果</p>
+<p>d .使用指定阈值来决定垂直边缘和水平边缘的结果</p>
+<p>e .使用函数imfilter 计算 45° 边缘的结果</p>
+<p>f . 使用函数imfilter 计算 -45° 边缘的结果</p>
+<p><strong>Sobel、LOG和Canny 边缘检测器的比较</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; [g_sobel_default, ts] = edge(f, &apos;sobel&apos;);</div><div class="line">&gt;&gt; [g_log_default, tlog] = edge(f, &apos;log&apos;);</div><div class="line">&gt;&gt; [g_canny_default, tc] = edge(f, &apos;canny&apos;);</div><div class="line">&gt;&gt; g_sobel_best = edge(f, &apos;sobel&apos;, 0.05);</div><div class="line">&gt;&gt; g_log_best = edge(f, &apos;log&apos;, 0.003, 2.25);</div><div class="line">&gt;&gt; g_canny_best = edge(f, &apos;canny&apos;, [0.04 0.10], 1.5);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/compare.jpg" alt=""></p>
+<p>​        左列： Sobel、LOG 和 Canny 边缘检测器使用默认选项产生的结果</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">右列：交互地显示原图像的主要特征，减少了无关的细节</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">综合所有，Canny 边缘检测器产生的最好结果</div></pre></td></tr></table></figure>
+<h3 id="使用Hough变换的线检测"><a href="#使用Hough变换的线检测" class="headerlink" title="使用Hough变换的线检测"></a>使用Hough变换的线检测</h3><p>寻找并链接图像中线段的处理方式</p>
+<ul>
+<li><p><strong>函数sparse</strong></p>
+<p>给是一个矩阵，用函数sparse把他转换成稀疏矩阵</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">S = sparse(A)</div></pre></td></tr></table></figure>
+<p> 更常用的方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">S = sparse(r, c, s, m, n)</div></pre></td></tr></table></figure>
+<ul>
+<li><p>r 和 c 分别是我们希望转换为稀疏矩阵的矩阵中非零元素的行和列索引向量</p>
+</li>
+<li><p>S 是一个向量，它包含有相应于索引对(r, c) 的值</p>
+</li>
+<li><p>m n 是结果矩阵的行维数和列维数</p>
+<p>​</p>
+</li>
+<li><p><strong>函数full</strong></p>
+<p>给出任意一个稀疏矩阵，用full 函数来获得完整的矩阵</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A = full(S)</div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>使用hough变换做峰值检测</strong></p>
+<ul>
+<li>找到包含有最大值的hough变换单元并记下它的位置</li>
+<li>把第一步中找到的最大值点的邻域中的hough变换单元设为零</li>
+<li>重复该步骤，直到找到需要的峰值数时为止，或者达到一个指定的阈值时为止</li>
+</ul>
+</li>
+<li><p><strong>函数houghpeaks</strong></p>
+<p>解决上述所讲的问题</p>
+</li>
+<li><p><strong>使用hough变换做先检测和链接</strong></p>
+<p>一旦hough变换中识别出了一组候选的峰被，则他们还要留待确定是否存在与这些峰值相关的线段以及它们的起始和结束为止。对每一个峰值来说，第一步是找到图像中影响到峰值的每一个非零值点的位置。因此，编写了函数houghpixels</p>
+<p>这里使用该函数来找到的位置相关的像素必须结合成线段，</p>
+</li>
+<li><p><strong>函数houghlines</strong>采用下面的策略</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/houghlines.jpg" alt=""></p>
+</li>
+<li><p><strong>使用hough变换做先检测和链接</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">[H, theta, rho] = hough(f, 0.5);</div><div class="line"></div><div class="line">imshow(imadjust(mat2gray(H)),&apos;XData&apos;,theta,&apos;YData&apos;,rho,&apos;InitialMagnification&apos;,&apos;fit&apos;),axis on, axis normal</div><div class="line"></div><div class="line">xlabel(&apos;\theta&apos;),ylabel(&apos;\rho&apos;)</div><div class="line"></div><div class="line">[r, c] = houghpeaks(H, 5);</div><div class="line"></div><div class="line">hold on</div><div class="line"></div><div class="line">plot(theta(c), rho(r), &apos;linestyle&apos;, &apos;none&apos;, &apos;marker&apos;, &apos;s&apos;, &apos;color&apos;, &apos;w&apos;)</div><div class="line"></div><div class="line">lines = houghlines(f, theta,rho,r,c)</div><div class="line"></div><div class="line">figure, imshow(f),hold on</div><div class="line"></div><div class="line"> In images.internal.initSize (line 71)</div><div class="line"></div><div class="line">  In imshow (line 309) </div><div class="line"></div><div class="line">for k = 1:length(lines)</div><div class="line"></div><div class="line">xy = [lines(k).point1 ; lines(k).point2];</div><div class="line"></div><div class="line">plot(xy(:, 2),xy(:,1),&apos;LineWidth&apos;, 4, &apos;Color&apos;, [.6 .6 .6]);</div><div class="line"></div><div class="line">end</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hough.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="阈值处理"><a href="#阈值处理" class="headerlink" title="阈值处理"></a>阈值处理</h3><ul>
+<li><strong>全局阈值处理</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">T = 0.5*(double(min(f(:))) + double(max(f(:))));</div><div class="line"></div><div class="line">done = false;</div><div class="line"></div><div class="line">while~done</div><div class="line"></div><div class="line">  g = f &gt;= T;</div><div class="line"></div><div class="line">  Tnext = 0.5*(mean(f(g))+mean(f(~g)));</div><div class="line"></div><div class="line">  done = abs(T - Tnext) &lt; 0.5;</div><div class="line"></div><div class="line">  T = Tnext;</div><div class="line"></div><div class="line">  end</div><div class="line"></div><div class="line">T2 = graythresh(f);</div><div class="line"></div><div class="line">T2 * 255</div><div class="line"></div><div class="line">bw = im2bw(f, T2);</div></pre></td></tr></table></figure>
+<p>  <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/graythresh.jpg" alt=""></p>
+<p>  ​</p>
+<ul>
+<li><p><strong>局部阈值处理</strong></p>
+<p>全局阈值处理方法在背景照明不均匀时有可能失效，在这种情况下</p>
+<ul>
+<li>针对照明问题做预处理以补偿图像，然后再对预处理后的图像采用全局阈值处理</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/21/形态学图像处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1110,7 +1687,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
@@ -1118,6 +1695,15 @@
 
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
           
 
         </nav>

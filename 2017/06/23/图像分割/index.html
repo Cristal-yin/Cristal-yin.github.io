@@ -1,0 +1,841 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数字图像处理," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="点、线和边缘检测 点检测 点检测在MATLAB中可以用函数imfilter来实现 点检测方法 1&amp;gt;&amp;gt; g = abs(imfilter(double(f), w)) &amp;gt;= T 其中f 是输入图像,w是一个合适的点检测掩模， g是结果图像  计算已滤波的图像，即abs(imfilter(double(f),w));  使用来自己滤波的图像的数据找到T的值  将已滤波的图像与T做比较">
+<meta name="keywords" content="数字图像处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像分割">
+<meta property="og:url" content="http://yoursite.com/2017/06/23/图像分割/index.html">
+<meta property="og:site_name" content="Cristal&#39;s blog">
+<meta property="og:description" content="点、线和边缘检测 点检测 点检测在MATLAB中可以用函数imfilter来实现 点检测方法 1&amp;gt;&amp;gt; g = abs(imfilter(double(f), w)) &amp;gt;= T 其中f 是输入图像,w是一个合适的点检测掩模， g是结果图像  计算已滤波的图像，即abs(imfilter(double(f),w));  使用来自己滤波的图像的数据找到T的值  将已滤波的图像与T做比较">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/abs.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/line.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/检测器.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/edge.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Canny.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Sobel.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/compare.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/houghlines.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hough.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/graythresh.jpg">
+<meta property="og:updated_time" content="2017-06-22T16:41:52.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图像分割">
+<meta name="twitter:description" content="点、线和边缘检测 点检测 点检测在MATLAB中可以用函数imfilter来实现 点检测方法 1&amp;gt;&amp;gt; g = abs(imfilter(double(f), w)) &amp;gt;= T 其中f 是输入图像,w是一个合适的点检测掩模， g是结果图像  计算已滤波的图像，即abs(imfilter(double(f),w));  使用来自己滤波的图像的数据找到T的值  将已滤波的图像与T做比较">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/abs.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/23/图像分割/"/>
+
+
+
+
+
+  <title>图像分割 | Cristal's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cristal's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/图像分割/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cristal">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cristal's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图像分割</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T00:31:08+08:00">
+                2017-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="点、线和边缘检测"><a href="#点、线和边缘检测" class="headerlink" title="点、线和边缘检测"></a>点、线和边缘检测</h3><ul>
+<li><p><strong>点检测</strong></p>
+<p>点检测在MATLAB中可以用函数imfilter来实现</p>
+<p><strong>点检测方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; g = abs(imfilter(double(f), w)) &gt;= T</div></pre></td></tr></table></figure>
+<p>其中f 是输入图像,w是一个合适的点检测掩模， g是结果图像</p>
+<ul>
+<li><p>计算已滤波的图像，即abs(imfilter(double(f),w));</p>
+</li>
+<li><p>使用来自己滤波的图像的数据找到T的值</p>
+</li>
+<li><p>将已滤波的图像与T做比较</p>
+<p><strong>点检测举例</strong></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = [-1 -1 -1;-1 8 -1; -1 -1 -1];</div><div class="line">&gt;&gt; g = abs(imfilter(double(f), w));</div><div class="line">&gt;&gt; T = max(g(:));</div><div class="line">&gt;&gt; g = g&gt;=T;</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/abs.jpg" alt=""></p>
+<p><strong>方法二</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;g = imsubstract(ordfilt2(f, m*n, ones(m, n)),ordfilt2(f, 1, ones(m, n)));</div><div class="line">&gt;&gt; g = g &gt;= T;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>线检测</strong></p>
+<p>线检测中对指定方向的线更感兴趣，这种情况下可以与该方向相关的掩模并对其输出做出阈值处理。</p>
+<p><strong>检测指定方向的线</strong></p>
+<p>​</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = [2 -1 -1 ; -1 2 -1; -1 -1 2];</div><div class="line">&gt;&gt; g = imfilter(double(f), w);</div><div class="line">&gt;&gt; gtop = g(1:120, 1:120);</div><div class="line">&gt;&gt; gtop = pixeldup(gtop, 4);</div><div class="line">&gt;&gt; subplot(1,2,1);</div><div class="line">&gt;&gt; gbot = g(end-119:end, end-119:end);</div><div class="line">&gt;&gt; gbot = pixeldup(gbot, 4);</div><div class="line">&gt;&gt; g = abs(g);</div><div class="line">&gt;&gt; T = max(g(:));</div><div class="line">&gt;&gt; g = g &gt;= T;</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/line.jpg" alt=""></p>
+<p>b 图是对a 进行 $-45^.$ 检测器处理后的节刚过，下面两幅分别是它的左上角和右下角的放大图，e 是b 的绝对值 f 是满足条件 g&gt;= T的所有点</p>
+<p><strong>函数pixeldup</strong></p>
+<p>​    pixeldup(m,n)————%pixeldup函数是将图像扩大m<em>n倍，通过复制每个像素点m</em>n次。</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/检测器.jpg" alt=""></p>
+<p>​</p>
+<p><strong>函数edge</strong></p>
+<p>边缘检测的基本意图是使用如下两个基本准则之一在图像中找到亮度快速变化的地方：</p>
+<ul>
+<li>找到亮度的一阶导数在幅度上比指定的阈值大的地方</li>
+<li>找到亮度的二阶导数有零交叉的地方</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;method&apos;, parameters)</div></pre></td></tr></table></figure>
+<p>其中f 是输入图像 , method 是下表中的方法 </p>
+<p>输出中 g是一个逻辑数组 ，其值如下决定：</p>
+<p>​    在f 中检测到边缘的位置为1， 在其他位置为 0</p>
+<p>t 参数是可选的，它给出edge使用的阈值，以确定那个梯度值足够大到可以称为边缘点。</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/edge.jpg" alt=""></p>
+<p><strong>Sobel边缘检测器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;soble&apos;, T, dir)</div></pre></td></tr></table></figure>
+<ul>
+<li>其中f 是输入图像，T 是一个指定的阈值 ，dir指定检测边缘的首选方向：‘horizontal’、’vertical’、 或’both’</li>
+<li>g 是在被检测到边缘的位置处为 1而在其他位置为0 的逻辑类图像</li>
+<li>输出参数t  是可选的，它是函数edge所用的阈值 </li>
+<li>若指定了T的值，则t = T ; 否则，若T 未被赋值 ，则函数edge会令t 等于它自动确定的一个阈值，然后用于边缘检测。</li>
+<li>在输出参量中要包括t的主要原因之一是为了得到一个阈值的初始值</li>
+<li>若使用语法  g = edge(f) 或 [g, t] = edge(f) ，则函数edge会默认使用Sobel 检测器</li>
+</ul>
+<p><strong>Prewitt边缘检测器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;prewitt&apos;,T, dir)</div></pre></td></tr></table></figure>
+<p>Prewitt 检测器比Sobel 检测器在计算上简单一点，但是比较容易产生一些噪声</p>
+<p><strong>Roberts边缘检测器</strong></p>
+<p>该检测器是最古老的边缘检测器之一，它也是最简单的一种边缘检测器；经常用于硬件的实现，因为既简单又快速。</p>
+<p><strong>Laplacian of a Gaussian 检测器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;log&apos;, T, sigma)</div></pre></td></tr></table></figure>
+<p>其中sigma是标准偏差，默认值为2</p>
+<p><strong>零交叉检测器</strong></p>
+<p>该检测器基于与LOG方法相同的概念，但卷积是使用指定的滤波函数H执行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;zerocross&apos;,T, H)</div></pre></td></tr></table></figure>
+<p><strong>Canny边缘检测器</strong></p>
+<p>该检测器是使用函数edge的最有效边缘检测器</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Canny.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[g, t] = edge(f, &apos;canny&apos;, T, sigma)</div></pre></td></tr></table></figure>
+<ul>
+<li>其中T 是一个向量， T= [T1,T2]</li>
+<li>sigma 是平滑滤波器的标准偏差</li>
+<li>t 是一个二元向量，该向量包含该算法用到的两个阈值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; [gv, t] = edge(f,&apos;sobel&apos;,&apos;vertical&apos;);</div><div class="line">&gt;&gt; gv = edge(f, &apos;sobel&apos;, 0.15, &apos;vertical&apos;);</div><div class="line">&gt;&gt; gboth = edge(f, &apos;sobel&apos;, 0.15);</div><div class="line">&gt;&gt; w45 = [-2 -1 0;-1 0 1; 0 1 2]</div><div class="line">&gt;&gt; g45 = imfilter(double(f), w45, &apos;replicate&apos;);</div><div class="line">&gt;&gt; T = 0.3 * max(abs(g45(:)));</div><div class="line">&gt;&gt; g45 = g45 &gt;= T;</div><div class="line">&gt;&gt; f45= [0 1 2;-1 0 1;-2 -1 0]</div><div class="line">&gt;&gt; h45= imfilter(double(f), f45,&apos;replicate&apos;);</div><div class="line">&gt;&gt; T = 0.3 * max(abs(h45(:)));</div><div class="line">&gt;&gt; h45 = h45 &gt;= T;</div></pre></td></tr></table></figure>
+<p>​</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/Sobel.jpg" alt=""></p>
+<p>​</p>
+<p>a . 原图像</p>
+<p>b .使用带有自动确定的阈值的一个垂直Sobel 掩模后， 函数edge导致的结果</p>
+<p>c .使用指定阈值后的结果</p>
+<p>d .使用指定阈值来决定垂直边缘和水平边缘的结果</p>
+<p>e .使用函数imfilter 计算 45° 边缘的结果</p>
+<p>f . 使用函数imfilter 计算 -45° 边缘的结果</p>
+<p><strong>Sobel、LOG和Canny 边缘检测器的比较</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; [g_sobel_default, ts] = edge(f, &apos;sobel&apos;);</div><div class="line">&gt;&gt; [g_log_default, tlog] = edge(f, &apos;log&apos;);</div><div class="line">&gt;&gt; [g_canny_default, tc] = edge(f, &apos;canny&apos;);</div><div class="line">&gt;&gt; g_sobel_best = edge(f, &apos;sobel&apos;, 0.05);</div><div class="line">&gt;&gt; g_log_best = edge(f, &apos;log&apos;, 0.003, 2.25);</div><div class="line">&gt;&gt; g_canny_best = edge(f, &apos;canny&apos;, [0.04 0.10], 1.5);</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/compare.jpg" alt=""></p>
+<p>​        左列： Sobel、LOG 和 Canny 边缘检测器使用默认选项产生的结果</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">右列：交互地显示原图像的主要特征，减少了无关的细节</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">综合所有，Canny 边缘检测器产生的最好结果</div></pre></td></tr></table></figure>
+<h3 id="使用Hough变换的线检测"><a href="#使用Hough变换的线检测" class="headerlink" title="使用Hough变换的线检测"></a>使用Hough变换的线检测</h3><p>寻找并链接图像中线段的处理方式</p>
+<ul>
+<li><p><strong>函数sparse</strong></p>
+<p>给是一个矩阵，用函数sparse把他转换成稀疏矩阵</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">S = sparse(A)</div></pre></td></tr></table></figure>
+<p> 更常用的方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">S = sparse(r, c, s, m, n)</div></pre></td></tr></table></figure>
+<ul>
+<li><p>r 和 c 分别是我们希望转换为稀疏矩阵的矩阵中非零元素的行和列索引向量</p>
+</li>
+<li><p>S 是一个向量，它包含有相应于索引对(r, c) 的值</p>
+</li>
+<li><p>m n 是结果矩阵的行维数和列维数</p>
+<p>​</p>
+</li>
+<li><p><strong>函数full</strong></p>
+<p>给出任意一个稀疏矩阵，用full 函数来获得完整的矩阵</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A = full(S)</div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>使用hough变换做峰值检测</strong></p>
+<ul>
+<li>找到包含有最大值的hough变换单元并记下它的位置</li>
+<li>把第一步中找到的最大值点的邻域中的hough变换单元设为零</li>
+<li>重复该步骤，直到找到需要的峰值数时为止，或者达到一个指定的阈值时为止</li>
+</ul>
+</li>
+<li><p><strong>函数houghpeaks</strong></p>
+<p>解决上述所讲的问题</p>
+</li>
+<li><p><strong>使用hough变换做先检测和链接</strong></p>
+<p>一旦hough变换中识别出了一组候选的峰被，则他们还要留待确定是否存在与这些峰值相关的线段以及它们的起始和结束为止。对每一个峰值来说，第一步是找到图像中影响到峰值的每一个非零值点的位置。因此，编写了函数houghpixels</p>
+<p>这里使用该函数来找到的位置相关的像素必须结合成线段，</p>
+</li>
+<li><p><strong>函数houghlines</strong>采用下面的策略</p>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/houghlines.jpg" alt=""></p>
+</li>
+<li><p><strong>使用hough变换做先检测和链接</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">[H, theta, rho] = hough(f, 0.5);</div><div class="line"></div><div class="line">imshow(imadjust(mat2gray(H)),&apos;XData&apos;,theta,&apos;YData&apos;,rho,&apos;InitialMagnification&apos;,&apos;fit&apos;),axis on, axis normal</div><div class="line"></div><div class="line">xlabel(&apos;\theta&apos;),ylabel(&apos;\rho&apos;)</div><div class="line"></div><div class="line">[r, c] = houghpeaks(H, 5);</div><div class="line"></div><div class="line">hold on</div><div class="line"></div><div class="line">plot(theta(c), rho(r), &apos;linestyle&apos;, &apos;none&apos;, &apos;marker&apos;, &apos;s&apos;, &apos;color&apos;, &apos;w&apos;)</div><div class="line"></div><div class="line">lines = houghlines(f, theta,rho,r,c)</div><div class="line"></div><div class="line">figure, imshow(f),hold on</div><div class="line"></div><div class="line"> In images.internal.initSize (line 71)</div><div class="line"></div><div class="line">  In imshow (line 309) </div><div class="line"></div><div class="line">for k = 1:length(lines)</div><div class="line"></div><div class="line">xy = [lines(k).point1 ; lines(k).point2];</div><div class="line"></div><div class="line">plot(xy(:, 2),xy(:,1),&apos;LineWidth&apos;, 4, &apos;Color&apos;, [.6 .6 .6]);</div><div class="line"></div><div class="line">end</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hough.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="阈值处理"><a href="#阈值处理" class="headerlink" title="阈值处理"></a>阈值处理</h3><ul>
+<li><strong>全局阈值处理</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">T = 0.5*(double(min(f(:))) + double(max(f(:))));</div><div class="line"></div><div class="line">done = false;</div><div class="line"></div><div class="line">while~done</div><div class="line"></div><div class="line">  g = f &gt;= T;</div><div class="line"></div><div class="line">  Tnext = 0.5*(mean(f(g))+mean(f(~g)));</div><div class="line"></div><div class="line">  done = abs(T - Tnext) &lt; 0.5;</div><div class="line"></div><div class="line">  T = Tnext;</div><div class="line"></div><div class="line">  end</div><div class="line"></div><div class="line">T2 = graythresh(f);</div><div class="line"></div><div class="line">T2 * 255</div><div class="line"></div><div class="line">bw = im2bw(f, T2);</div></pre></td></tr></table></figure>
+<p>  <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/graythresh.jpg" alt=""></p>
+<p>  ​</p>
+<ul>
+<li><p><strong>局部阈值处理</strong></p>
+<p>全局阈值处理方法在背景照明不均匀时有可能失效，在这种情况下</p>
+<ul>
+<li>针对照明问题做预处理以补偿图像，然后再对预处理后的图像采用全局阈值处理</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数字图像处理/" rel="tag"># 数字图像处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/21/形态学图像处理/" rel="next" title="形态学图像处理">
+                <i class="fa fa-chevron-left"></i> 形态学图像处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/23/表示与描述/" rel="prev" title="表示与描述">
+                表示与描述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Cristal" />
+          <p class="site-author-name" itemprop="name">Cristal</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#点、线和边缘检测"><span class="nav-number">1.</span> <span class="nav-text">点、线和边缘检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Hough变换的线检测"><span class="nav-number">2.</span> <span class="nav-text">使用Hough变换的线检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阈值处理"><span class="nav-number">3.</span> <span class="nav-text">阈值处理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cristal</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
