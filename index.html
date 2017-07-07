@@ -320,7 +320,7 @@
 
       
         
-          <p>《机器学学》–周志华 第二章学习笔记</p>
+          <p>《机器学习》–周志华 第二章学习笔记</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/07/模型评估与选择/#more" rel="contents">
@@ -436,32 +436,14 @@
 
       
         
-          
-            <a id="more"></a>
-<p><strong>基本术语</strong></p>
-<ul>
-<li>分类（classification）：若我们欲预测的是离散值，如“好瓜”“坏瓜”，此类学习任务成为“分类”。</li>
-<li>回归（regression）：若预测的是连续值，如西瓜成熟度0.65，0.78，此类学习任务称为“回归”。</li>
-<li>聚类（clustering）：将训练集分成若干组（簇），这些簇可能对应一些潜在的概念划分，如“浅色瓜”“深色瓜”。</li>
-<li>学习（learning）/训练（training）：从数据中学得模型的过程。</li>
-<li>训练数据：训练过程中使用的数据。</li>
-<li>训练集：训练样本组成的集合。</li>
-<li>真相/真实：关于数据的某种潜在规律自身。学习过程就是为了找出或逼近真相。</li>
-<li>根据训练数据是否有<strong>标记信息</strong>，学习任务可分为：监督学习 和 无监督学习。分类、回归是监督学习，聚类是非监督学习。</li>
-<li>泛化能力：学得模型适用于新样本的能力。</li>
-<li>归纳偏好：机器学习算法在学习过程中对某种类型假设的偏好，如算法喜欢“好瓜&lt;-&gt;（色泽=青绿）^（根蒂=蜷缩）^（敲声=浊响）”。注：任何一个有效的学习算法必有其归纳偏好，否则它将被假设空间中假设所迷惑。</li>
-</ul>
-<p><strong>没有免费的午餐</strong></p>
-<p>No Free Lunch Theoren 定理 ，<br>没有免费的午餐定理，简称NFL定理，<br>由美国斯坦福大学的Wolpert和Macready教授提出。</p>
-<p>在机器学习算法中的体现为在没有实际背景下，<br>没有一种算法比随机胡猜的效果好。</p>
-<p>首先，我们假设一个算法为a，<br>而随机胡猜的算法为b，<br>为了简单起见，<br>假设样本空间为χ和假设空间为H都是离散的。<br>令 P(h|X,a)表示算法a基于训练数据X产生假设h的概率，<br>再令f代表我们希望的真实目标函数。<br>a的训练集外误差，即a 在训练集之外的所有样本上的误差为</p>
-<p><strong>Eote(a|X,f)=∑h∑x∈χXP(x)I(h(x)≠f(x))P(h|X,a)</strong></p>
-<p>其中I()是指示函数，若为真则取值1，否则取值0.</p>
-<p>考虑二分类问题，且真实目标函数可以是任何函数χ{0,1},函数空间为{0,1}|χ|(|χ|指样本空间χ中元素个数，对所有可能的f按均匀分布对误差求和，有<br> ∑fEote(a|X,f)<br>=∑f∑h∑x∈χXP(x)I(h(x)≠f(x))P(h|X,a)<br>=∑x∈χXP(x)∑hP(h|X,a)∑fI(h(x)≠f(x))<br>=∑x∈χXP(x)∑hP(h|X,a)122|χ|<br>=2|χ|1∑x∈χXP(x)∑hP(h|X,a)<br>=2|χ|1∑x∈χXP(x)1**</p>
-<p>可以看到总误差竟与算法无关！<br>对于任何两个算法a和b都有<br><strong>∑fEote(a|X,f)=∑fEote(b|X,f)</strong></p>
-<p>得证无论算法多好在没有实际背景情况下都不如随机胡猜。<br>所以，NFL定理最重要意义是，<br>在脱离实际意义情况下，<br>空泛地谈论哪种算法好毫无意义，<br>要谈论算法优劣必须针对具体学习问题</p>
-
-          
+          <p>《机器学习》 – 周志华 第一章学习笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/07/常用专业术语/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1974,187 +1956,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h3 id="MATLAB中彩色图像的表示方法"><a href="#MATLAB中彩色图像的表示方法" class="headerlink" title="MATLAB中彩色图像的表示方法"></a>MATLAB中彩色图像的表示方法</h3><ul>
-<li><p><strong>RGB 图像 </strong></p>
-<p>数据类型为double 型</p>
-<p><code>rgb_image = cat(3, fR, fG, fB)</code></p>
-<p>其中fR,fG和fB分别代表三种RGB分量图像</p>
-<p>RGB彩色空间常常用一个RGB彩色立方体加以图解展示。</p>
-<p>​</p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/rgbcube.jpg" alt=""></p>
-<p>​        <code>&gt;&gt; rgbcube(5, 5, 10)</code></p>
-</li>
-<li><p><strong>索引图像</strong></p>
-<p>索引图像有两个分量，即整数的数据矩阵X和</p>
-<p><strong>imapprox函数</strong></p>
-<p><code>[Y, newmap] = imapprox(X, map, n)</code></p>
-<p>指定一幅彩色图</p>
-<p>​    <code>&gt;&gt; map(k, :) = [r(k) g(k) b(k)]</code></p>
-<p>更换背景颜色</p>
-<p>​    <code>&gt;&gt; whitebg = (&#39;g&#39;)</code></p>
-<p>​    (三种表达)</p>
-</li>
-<li><p><strong>IPT函数 </strong></p>
-<p><strong>dither函数</strong></p>
-<p>​    <code>bw = dither(gray_image)</code></p>
-<p>抖动后的结果为二值图像</p>
-<p><strong>grayslice函数</strong></p>
-<p>​    <code>X = grayslice(gray_image, n)</code></p>
-<p>该函数通过赋给 gray_image 一个阈值来生成一幅索引图像</p>
-<p><strong>gray2ind函数</strong></p>
-<p>​    <code>[X, map] = gray2ind(gray_image, n)</code></p>
-<p>该函数执行必要的缩放</p>
-<p><strong>ind2gray函数</strong></p>
-<p>​    <code>gray_image = ind2gray(X, map)</code></p>
-<p>该函数把一幅由X和map构成的索引图像转换成一幅灰度图像。</p>
-<p><strong>rgb2ind函数</strong></p>
-<p>​    <code>[X, map] = rgb2ind(rgb_image, n, dither_options)</code></p>
-<p>其中，n决定map的长度，dither_option可以有一个或两个值：’dither’执行抖动，’nodither’将原图像上的每一种颜色映射到新图像上与其最接近的颜色，不执行抖动。</p>
-<p><strong>rgb2gray函数</strong></p>
-<p>​    <code>gray_image = ind2rgb(X, map)</code></p>
-<p>该函数将一幅RGB图像转换成一幅灰度图像.</p>
-<p><strong>例:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/iris.jpg&apos;);</div><div class="line">[x1, map1] = rgb2ind(f, 8, &apos;nodither&apos;);</div><div class="line">[x2, map2] = rgb2ind(f, 8, &apos;dither&apos;);</div><div class="line">b = ind2rgb(x1, map1);</div><div class="line">c = ind2rgb(x2, map2);</div><div class="line">g = rgb2gray(f);</div><div class="line">g1 = dither(g);</div><div class="line">subplot(1, 5, 1);</div><div class="line">imshow(f);</div><div class="line">subplot(1, 5, 2);</div><div class="line">imshow(b);</div><div class="line">subplot(1, 5, 3);</div><div class="line">imshow(c);</div><div class="line">subplot(1, 5, 4);</div><div class="line">imshow(g);</div><div class="line">subplot(1, 5, 5);</div><div class="line">imshow(g1);</div></pre></td></tr></table></figure>
-<p><strong>图片:</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/iris.jpg" alt=""></p>
-<p>​</p>
-</li>
-</ul>
-<h3 id="转换至其他彩色空间"><a href="#转换至其他彩色空间" class="headerlink" title="转换至其他彩色空间"></a>转换至其他彩色空间</h3><ul>
-<li><p><strong>NTSC彩色空间</strong></p>
-<p>主要优势:灰度信息和彩色信息是分离的</p>
-<p>在此制式中，图像数据是由三部分组成</p>
-<ul>
-<li>亮度(Y)</li>
-<li>色度(I)</li>
-<li>饱和度(Q)</li>
-</ul>
-</li>
-<li><p><strong>函数rgb2ntsc、ntsc2rgb</strong></p>
-<p>rgb2ntsc 输出的图像是double类 , 输入的图像可以是 uint8、uint16或double类</p>
-<p>ntsc2rgb 输入、输出的图像都是double 类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;Triangle.tif&apos;);</div><div class="line">&gt;&gt; yiq = rgb2ntsc(f);</div><div class="line">&gt;&gt; rgb = ntsc2rgb(yiq);</div><div class="line">&gt;&gt; subplot(1, 5, 1);</div><div class="line">&gt;&gt; imshow(rgb);</div><div class="line">&gt;&gt; title(&apos;原图&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 2);</div><div class="line">&gt;&gt; imshow(yiq);</div><div class="line">&gt;&gt; title(&apos;YIQ&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 3);</div><div class="line">&gt;&gt; figure, imshow(yiq(:, :, 1));</div><div class="line">&gt;&gt; imshow(yiq(:, :, 1));</div><div class="line">&gt;&gt; title(&apos;亮度&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 4);</div><div class="line">&gt;&gt; imshow(yiq(:, :, 2));</div><div class="line">&gt;&gt; title(&apos;色度&apos;);</div><div class="line">&gt;&gt; subplot(1, 5, 5);</div><div class="line">&gt;&gt; imshow(yiq(:, :, 3));</div><div class="line">&gt;&gt; title(&apos;饱和度&apos;);</div></pre></td></tr></table></figure>
-<p>​</p>
-<p>实例图像:</p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/YIQ.jpg" alt=""></p>
-<p>​</p>
-</li>
-<li><p><strong>YCbCr 彩色空间</strong></p>
-<p><strong>函数ycbCr2rgb、rgb2ycbcr</strong></p>
-<p>​    两个函数的输入图像都可以是uint8、uint16或者double类，输出图像和输入图像的类相同。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;Triangle.tif&apos;);</div><div class="line">&gt;&gt; ycb = rgb2ycbcr(f);</div><div class="line">&gt;&gt; rgb = ycbCr2rgb(ycb);</div></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ycb.jpg" alt=""></p>
-</li>
-<li><p><strong>HSV彩色空间 （色调、饱和度、数值）</strong></p>
-<p><strong>函数rgb2hsv、hsv2rgb</strong></p>
-<p>​    rgb2hsv 输入图像可以是 uint8、 uint16或double类，输出图像是double类；hsv2rgb 输入图像必须是 double 类 ，输出图像也是。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;Triangle.tif&apos;);</div><div class="line">&gt;&gt; ycb = rgb2ycbcr(f);</div><div class="line">&gt;&gt; rgb = ycbCr2rgb(ycb);</div></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hsv.jpg" alt=""></p>
-</li>
-<li><p><strong>CMY 和 CMYK 彩色空间</strong></p>
-<p><strong>函数imcomplement</strong></p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/CMY.jpg" alt=""> </p>
-<ul>
-<li><p><strong>HSI 彩色空间（色度、饱和度、亮度）</strong></p>
-<p><strong>rgb2hsi.m</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">function hsi = rgb2hsi(rgb)</div><div class="line">rgb = im2double (rgb);</div><div class="line">r = rgb(:, :, 1);</div><div class="line">g = rgb(:, :, 2);</div><div class="line">b = rgb(:, :, 3);</div><div class="line">num = 0.5 * ((r - g) + (r - b));</div><div class="line">den = sqrt( (r - g).^2 + (r - b).* (g - b));</div><div class="line">theta = acos(num./(den +eps));</div><div class="line"></div><div class="line">H = theta;</div><div class="line">H(b &gt; g) = 2*pi - H(b &gt; g);</div><div class="line">H = H/(2*pi);</div><div class="line"></div><div class="line">num = min(min(r, g), b);</div><div class="line">den = r + g + b;</div><div class="line">den(den == 0) = eps;</div><div class="line">S = 1 - 3.* num ./ den;</div><div class="line">H (S == 0) = 0;</div><div class="line">I = (r + g + b)/3;</div><div class="line">hsi = cat(3, H, S, I);</div><div class="line">subplot(3, 3, 1);</div><div class="line">imshow(rgb),title(&apos;rgb&apos;);</div><div class="line">subplot(3, 3, 2);</div><div class="line">imshow(hsi),title(&apos;hsi&apos;);</div><div class="line">subplot(3, 3, 4);</div><div class="line">imshow(r),title(&apos;r&apos;);</div><div class="line">subplot(3, 3, 5);</div><div class="line">imshow(g),title(&apos;g&apos;);</div><div class="line">subplot(3, 3, 6);</div><div class="line">imshow(b),title(&apos;b&apos;);</div><div class="line">subplot(3, 3, 7);</div><div class="line">imshow(H),title(&apos;h&apos;);</div><div class="line">subplot(3, 3, 8);</div><div class="line">imshow(S),title(&apos;s&apos;);</div><div class="line">subplot(3, 3, 9);</div><div class="line">imshow(I),title(&apos;i&apos;);</div></pre></td></tr></table></figure>
-<p>​</p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/hsi.jpg" alt=""></p>
-<p>​</p>
-</li>
-</ul>
-<h3 id="彩色图像的处理基础"><a href="#彩色图像的处理基础" class="headerlink" title="彩色图像的处理基础"></a>彩色图像的处理基础</h3><ul>
-<li>颜色变换（彩色映射）</li>
-<li>单独彩色平面的空间处理</li>
-<li>颜色向量处理</li>
-</ul>
-<h3 id="彩色变换"><a href="#彩色变换" class="headerlink" title="彩色变换"></a>彩色变换</h3><ul>
-<li><p><strong>ice函数</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice.jpg" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f = imread(&apos;breast.tif&apos;);</div><div class="line">&gt;&gt; g = ice(&apos;image&apos;, f);</div></pre></td></tr></table></figure>
-<p>​</p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice_breast.jpg" alt=""></p>
-<p>​</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/ice_breast2.jpg" alt="">  </p>
-<ul>
-<li><p><strong>伪彩色映射</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flash.jpg" alt=""></p>
-</li>
-<li><p><strong>单色和彩色对比度增强</strong></p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/flog.jpg" alt=""></p>
-<ul>
-<li><p>彩色平衡</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; f2 = ice(&apos;image&apos;, f1, &apos;space&apos;, &apos;CMY&apos;);</div></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/baby.jpg" alt=""></p>
-<p>​</p>
-</li>
-</ul>
-<h3 id="彩色图像的空间滤波"><a href="#彩色图像的空间滤波" class="headerlink" title="彩色图像的空间滤波"></a>彩色图像的空间滤波</h3><h4 id="图像平滑和图像锐化"><a href="#图像平滑和图像锐化" class="headerlink" title="图像平滑和图像锐化"></a>图像平滑和图像锐化</h4><ul>
-<li><p><strong>彩色图像平滑</strong></p>
-<ul>
-<li><p>单色图像的平滑（空间平均）可以通过空间掩模中的相应系数（全是1）去</p>
-<p>乘所有像素的值，并用掩模中元素的总数去除来实现。</p>
-</li>
-<li><p>用邻域平均的平滑可以在独立分量的基础上进行。</p>
-</li>
-<li><p><strong>使用线性空间滤波器平滑RGB彩色图像fc</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fR = fc(:, :, 1), fG = fc(:, :, 2), fB = fc(:, :, 3);</div><div class="line">fR_filtered = imfilter(fR, w);</div><div class="line">fc_filtered = imfilter(fc, w);</div></pre></td></tr></table></figure>
-<p>  此方法将RGB图像三幅分量图像提取出来，分别进行分量图像滤波，最后重建滤波。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">三步合一：</div><div class="line">fc_filtered = imfilter(fc, w);</div></pre></td></tr></table></figure>
-<p><strong>RGB图像及其分量图像 </strong></p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">f = imread(&apos;iris.tif&apos;);</div><div class="line"></div><div class="line">fR = f(:, :, 1);</div><div class="line"></div><div class="line">fG = f(:, :, 2);</div><div class="line"></div><div class="line">fB = f(:, :, 3);</div></pre></td></tr></table></figure>
-<p>  <strong>图片:</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/RGB_conponment.jpg" alt=""></p>
-<p>  <strong>HSI分量图像</strong></p>
-<p> <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/HSI_componment.jpg" alt="">  </p>
-<p>​</p>
-<p><strong>平滑后图像</strong>  <img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/smoothness.jpg" alt=""></p>
-</li>
-<li><p><strong>彩色图像锐化</strong></p>
-<p><strong>拉普拉斯算子</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; w = fspecial(&apos;average&apos;,5);</div><div class="line">&gt;&gt; fa = imfilter(f, w, &apos;replicate&apos;);</div><div class="line">&gt;&gt; lapmask = [1 1 1; 1 -8 1; 1 1 1];</div><div class="line">&gt;&gt; fen = imsubtract(fa, imfilter(fa, lapmask, &apos;replicate&apos;));</div></pre></td></tr></table></figure>
-<p><strong>图片:</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/lapmask.jpg" alt=""></p>
-</li>
-</ul>
-<h3 id="在RGB向量空间直接处理"><a href="#在RGB向量空间直接处理" class="headerlink" title="在RGB向量空间直接处理"></a>在RGB向量空间直接处理</h3><p> <strong>彩色边缘检测和区域分割</strong></p>
-<ul>
-<li><p><strong>使用梯度的彩色边缘检测</strong></p>
-<p><strong>函数colorgrad实现RGB图像的彩色梯度</strong></p>
-<p>f 是一幅RGB图像，T是范围[0, 1]内的一个可选阈值；</p>
-<p>VG 是RGB 向量梯度,A是以弧度计的角度，用于实现RGB的彩色梯度</p>
-<p>PPG是对单独彩色平面的二维梯度求和形成的梯度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; r = f(:,:,1);</div><div class="line">&gt;&gt; g = f(:,:,2);</div><div class="line">&gt;&gt; b = f(:,:,3);</div><div class="line">&gt;&gt; [VG, A, PPG] = colorgrad(f);</div></pre></td></tr></table></figure>
-<p><strong>图片：</strong></p>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad.jpg" alt=""></p>
-<p>​</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorgrad2.jpg" alt=""></p>
-<ul>
-<li><p><strong>RGB向量空间中的图像分割</strong></p>
-<p>分割是把一幅图像分成一些区域的处理</p>
-<p><strong>使用RGB彩色向量进行分割</strong></p>
-<ul>
-<li><p><strong>函数colorseg</strong></p>
-<p>​</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Cristal-yin/MarkdownPhotos/master/images/secondAssignment/colorseg.jpg" alt=""></p>
-
-          
+          <p>《数字图像处理》 –冈萨雷斯  第六章学习笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/21/彩色图像处理/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
